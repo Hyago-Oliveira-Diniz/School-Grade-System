@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Aluno - Portal Escolar</title>
+    <link rel="stylesheet" href="logado.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <h2>📚 Escola</h2>
+        <ul>
+            <li onclick="mostrarSecao('dashboard')">Dashboard</li>
+            <li onclick="mostrarSecao('notas')">Minhas Notas</li>
+            <li onclick="mostrarSecao('frequencias')">Frequência</li>
+            <li onclick="mostrarSecao('turmas')">Minhas Turmas</li>
+        </ul>
+        <button onclick="logout()">Sair</button>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+        <header>
+            <h1 id="usuarioLogado"></h1>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+            <h2>Bem-vindo ao sistema</h2>
+            <p id="info"></p>
+        </section>
+
+        <!-- NOTAS -->
+        <section id="notas" style="display:none;">
+            <h2>Minhas Notas</h2>
+            <ul id="listaNotas"></ul>
+        </section>
+
+        <!-- FREQUÊNCIAS -->
+        <section id="frequencias" style="display:none;">
+            <h2>Minha Frequência</h2>
+            <ul id="listaFrequencias"></ul>
+        </section>
+
+        <!-- TURMAS -->
+        <section id="turmas" style="display:none;">
+            <h2>Minhas Turmas</h2>
+            <ul id="listaTurmas"></ul>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+    mostrarUsuario();
+</script>
+
+</body>
+</html>

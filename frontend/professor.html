@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Professor - Portal Escolar</title>
+    <link rel="stylesheet" href="logado.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <h2>📚 Escola</h2>
+        <ul>
+            <li onclick="mostrarSecao('dashboard')">Dashboard</li>
+            <li onclick="mostrarSecao('turmas')">Turmas</li>
+            <li onclick="mostrarSecao('aulas')">Aulas</li>
+            <li onclick="mostrarSecao('professores')">Professores</li>
+            <li onclick="mostrarSecao('notas')">Notas</li>
+        </ul>
+        <button onclick="logout()">Sair</button>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+        <header>
+            <h1 id="usuarioLogado"></h1>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+            <h2>Bem-vindo ao sistema</h2>
+            <p id="info"></p>
+        </section>
+
+        <!-- TURMAS -->
+        <section id="turmas" style="display:none;">
+            <h2>Turmas</h2>
+            <ul id="listaTurmas"></ul>
+        </section>
+
+        <!-- AULAS -->
+        <section id="aulas" style="display:none;">
+            <h2>Aulas</h2>
+            <ul id="listaAulas"></ul>
+        </section>
+
+        <!-- PROFESSORES -->
+        <section id="professores" style="display:none;">
+            <h2>Professores</h2>
+            <ul id="listaProfessores"></ul>
+        </section>
+
+        <!-- NOTAS -->
+        <section id="notas" style="display:none;">
+            <h2>Notas</h2>
+            <ul id="listaNotas"></ul>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+    mostrarUsuario();
+</script>
+
+</body>
+</html>
