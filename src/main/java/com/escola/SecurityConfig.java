@@ -22,42 +22,49 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
 
-                // Endpoints públicos — qualquer um acessa
-                .requestMatchers("/api/login", "/api/cadastro").permitAll()
+                        // Endpoints totalmente públicos
+                        .requestMatchers("/api/login", "/api/cadastro").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
 
-                // Apenas ADMIN pode gerenciar usuários
-                .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
+                        // Apenas ADMIN gerencia usuários
+                        .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
 
-                // ADMIN e PROFESSOR podem criar/editar turmas e disciplinas
-                .requestMatchers(HttpMethod.POST, "/api/turmas/**", "/api/disciplinas/**")
-                    .hasAnyRole("ADMIN", "PROFESSOR")
-                .requestMatchers(HttpMethod.PUT, "/api/turmas/**", "/api/disciplinas/**")
-                    .hasAnyRole("ADMIN", "PROFESSOR")
-                .requestMatchers(HttpMethod.DELETE, "/api/turmas/**", "/api/disciplinas/**")
-                    .hasRole("ADMIN")
+                        // ADMIN e PROFESSOR criam/editam turmas e disciplinas
+                        .requestMatchers(HttpMethod.POST, "/api/turmas/**", "/api/disciplinas/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR")
+                        .requestMatchers(HttpMethod.PUT, "/api/turmas/**", "/api/disciplinas/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/turmas/**", "/api/disciplinas/**")
+                        .hasRole("ADMIN")
 
-                // ADMIN pode criar/editar professores e alunos
-                .requestMatchers(HttpMethod.POST, "/api/professores/**", "/api/alunos/**")
-                    .hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/professores/**", "/api/alunos/**")
-                    .hasAnyRole("ADMIN", "PROFESSOR")
-                .requestMatchers(HttpMethod.DELETE, "/api/professores/**", "/api/alunos/**")
-                    .hasRole("ADMIN")
+                        // ADMIN gerencia professores e alunos
+                        .requestMatchers(HttpMethod.POST, "/api/professores/**", "/api/alunos/**")
+                        .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/professores/**", "/api/alunos/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR")
+                        .requestMatchers(HttpMethod.DELETE, "/api/professores/**", "/api/alunos/**")
+                        .hasRole("ADMIN")
 
-                // ALUNO e RESPONSAVEL só podem consultar (GET)
-                .requestMatchers(HttpMethod.GET, "/api/turmas/**", "/api/disciplinas/**",
-                        "/api/alunos/**", "/api/professores/**")
-                    .hasAnyRole("ADMIN", "PROFESSOR", "ALUNO", "RESPONSAVEL")
+                        // Lançar notas e frequência — PROFESSOR e ADMIN
+                        .requestMatchers(HttpMethod.POST, "/api/notas/**", "/api/frequencias/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR")
 
-                // Qualquer outro endpoint exige login
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                        // Consultas — todos os perfis logados podem ver
+                        .requestMatchers(HttpMethod.GET, "/api/turmas/**", "/api/disciplinas/**",
+                                "/api/alunos/**", "/api/professores/**",
+                                "/api/notas/**", "/api/frequencias/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR", "ALUNO", "RESPONSAVEL")
+
+                        // Qualquer outra rota exige autenticação
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
