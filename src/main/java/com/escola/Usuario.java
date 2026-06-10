@@ -1,6 +1,7 @@
 package com.escola;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,11 +22,12 @@ public class Usuario implements UserDetails {
 
     private String nome;
 
-    @JsonIgnore
+    // WRITE_ONLY: aceita a senha no Body mas nunca retorna nas respostas
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
     @Enumerated(EnumType.STRING)
-    private TipoUsuario tipo; // ADMIN, PROFESSOR, ALUNO, RESPONSAVEL
+    private TipoUsuario tipo;
 
     // GETTERS E SETTERS
 
@@ -41,7 +43,6 @@ public class Usuario implements UserDetails {
         this.usuario = usuario;
     }
 
-    @JsonIgnore
     public String getSenha() {
         return senha;
     }
