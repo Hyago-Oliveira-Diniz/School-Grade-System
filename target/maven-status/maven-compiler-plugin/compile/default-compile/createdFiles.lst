@@ -15,6 +15,7 @@ com\escola\NotaTrabalhoRepository.class
 com\escola\Usuario.class
 com\escola\SecurityConfig.class
 com\escola\DisciplinaController.class
+com\escola\SetupInicial.class
 com\escola\AlunoController.class
 com\escola\AlunoRepository.class
 com\escola\DisciplinaRepository.class

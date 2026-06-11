@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3946a1b9-07db-4ef1-8777-9ff83f906096" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/escola/Responsavel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/escola/ResponsavelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/escola/ResponsavelRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/escola/dto/UsuarioRegistroDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/escola/SetupInicial.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testdb.mv.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testdb.trace.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-responsavel.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/cadastro-responsavel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/responsavel.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/responsavel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/EscolaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/EscolaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
