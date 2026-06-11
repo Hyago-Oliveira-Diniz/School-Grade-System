@@ -6,59 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="3946a1b9-07db-4ef1-8777-9ff83f906096" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" afterPath="$PROJECT_DIR$/HELP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/testdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/testdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/testdb.trace.db" beforeDir="false" afterPath="$PROJECT_DIR$/data/testdb.trace.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/cadastro-aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/cadastro-aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/cadastro-professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/cadastro-professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/logado.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/logado.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Aluno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Aluno.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/AlunoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/AlunoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/AlunoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/AlunoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Disciplina.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Disciplina.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/DisciplinaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/DisciplinaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/DisciplinaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/DisciplinaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/EscolaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/EscolaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Frequencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Frequencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/FrequenciaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/JwtFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Nota.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Nota.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/NotaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/NotaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/NotaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/NotaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/NotaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/NotaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Pessoa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Pessoa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Professor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Professor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/ProfessorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/ProfessorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/ProfessorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/ProfessorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/admin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/aluno.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cadastro-aluno.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/cadastro-professor.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/logado.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/aluno.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/portal-frontend/responsavel.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/portal-frontend/responsavel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/professor.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/TipoUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/TipoUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Turma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Turma.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/TurmaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/TurmaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/TurmaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/TurmaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escola/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

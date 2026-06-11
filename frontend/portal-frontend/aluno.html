@@ -5,6 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Aluno — Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
+    <style>
+        /* frequência percentual */
+        .freq-resumo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+        }
+        .freq-pct {
+            font-size: 32px;
+            font-weight: 700;
+            min-width: 72px;
+            text-align: center;
+        }
+        .freq-pct.ok   { color: #16a34a; }
+        .freq-pct.warn { color: #dc2626; }
+        .freq-bar-wrap { flex: 1; background: #e5e7eb; border-radius: 20px; height: 10px; }
+        .freq-bar      { height: 10px; border-radius: 20px; transition: width .4s; }
+        .freq-bar.ok   { background: #16a34a; }
+        .freq-bar.warn { background: #dc2626; }
+        .freq-info     { font-size: 13px; color: #666; }
+        .freq-info strong { color: #333; }
+
+        /* trabalho card */
+        .trabalho-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .trabalho-card-info strong { font-size: 15px; color: #1e3a5f; }
+        .trabalho-card-info span   { font-size: 13px; color: #888; display: block; margin-top: 3px; }
+        .trabalho-nota-wrap        { text-align: center; flex-shrink: 0; }
+        .trabalho-nota-wrap .label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: .5px; }
+
+        /* mini barra de nota relativa */
+        .nota-mini-bar-wrap { background: #e5e7eb; border-radius: 20px; height: 6px; width: 100px; margin: 4px auto 0; }
+        .nota-mini-bar      { height: 6px; border-radius: 20px; }
+        .nota-mini-bar.ok   { background: #16a34a; }
+        .nota-mini-bar.mid  { background: #f59e0b; }
+        .nota-mini-bar.low  { background: #ef4444; }
+
+        /* faltas list */
+        .falta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #fef2f2;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .falta-item .disc { font-weight: 600; color: #1e3a5f; }
+        .falta-item .data { color: #888; font-size: 13px; }
+
+        .pres-item {
+            padding: 10px 14px;
+            background: #f0fdf4;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .disc-bloco {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .disc-bloco h4 { font-size: 14px; color: #1e3a5f; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
 <div class="layout">
@@ -16,10 +95,11 @@
         </div>
         <nav>
             <ul>
-                <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
-                <li data-secao="notas" onclick="mostrarSecao('notas')">📝 Minhas Notas</li>
+                <li data-secao="dashboard"   class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
+                <li data-secao="notas"       onclick="mostrarSecao('notas')">📝 Minhas Notas</li>
+                <li data-secao="trabalhos"   onclick="mostrarSecao('trabalhos')">📋 Trabalhos</li>
                 <li data-secao="frequencias" onclick="mostrarSecao('frequencias')">📅 Frequência</li>
-                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Minhas Turmas</li>
+                <li data-secao="turmas"      onclick="mostrarSecao('turmas')">🏫 Minhas Turmas</li>
                 <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
             </ul>
         </nav>
@@ -34,7 +114,7 @@
 
     <main class="content">
 
-        <!-- DASHBOARD -->
+        <!-- ══════════════ DASHBOARD ══════════════ -->
         <section id="dashboard" class="active">
             <div class="page-header">
                 <h1>Bem-vindo! 👋</h1>
@@ -47,14 +127,14 @@
                     <div class="stat-label">Notas Lançadas</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-value" id="percentualPresenca">—</div>
-                    <div class="stat-label">Frequência</div>
+                    <div class="stat-icon">📋</div>
+                    <div class="stat-value" id="totalTrabalhos">—</div>
+                    <div class="stat-label">Trabalhos</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">🏫</div>
-                    <div class="stat-value" id="totalTurmas">—</div>
-                    <div class="stat-label">Turmas</div>
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="percentualPresenca">—</div>
+                    <div class="stat-label">Frequência Geral</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📚</div>
@@ -64,46 +144,57 @@
             </div>
         </section>
 
-        <!-- NOTAS -->
+        <!-- ══════════════ NOTAS ══════════════ -->
         <section id="notas">
             <div class="page-header">
                 <h1>📝 Minhas Notas</h1>
-                <p>Notas por bimestre e média final</p>
+                <p>Notas por bimestre e média final, agrupadas por disciplina</p>
             </div>
             <div class="section-card">
                 <h2>Notas por Disciplina</h2>
-                <div id="listaNotas"><div class="empty-state"><span>📝</span><p>Carregando...</p></div></div>
+                <div id="listaNotas">
+                    <div class="empty-state"><span>📝</span><p>Carregando...</p></div>
+                </div>
             </div>
         </section>
 
-        <!-- FREQUÊNCIAS -->
-        <section id="frequencias">
+        <!-- ══════════════ TRABALHOS ══════════════ -->
+        <section id="trabalhos">
             <div class="page-header">
-                <h1>📅 Frequência</h1>
-                <p>Registro de presença por aula</p>
+                <h1>📋 Meus Trabalhos</h1>
+                <p>Trabalhos com data de entrega e suas notas</p>
             </div>
             <div class="section-card">
-                <h2>Histórico de Presença</h2>
-                <ul class="lista" id="listaFrequencias"></ul>
+                <h2>Trabalhos Avaliados</h2>
+                <div id="listaTrabalhos">
+                    <div class="empty-state"><span>📋</span><p>Carregando...</p></div>
+                </div>
             </div>
         </section>
 
-        <!-- TURMAS -->
-        <section id="turmas">
+        <!-- ══════════════ FREQUÊNCIA ══════════════ -->
+        <section id="frequencias">
             <div class="page-header">
-                <h1>🏫 Minhas Turmas</h1>
+                <h1>📅 Minha Frequência</h1>
+                <p>Porcentagem de presença e registro de faltas por disciplina</p>
             </div>
+            <div id="secaoFrequencias">
+                <div class="empty-state"><span>📅</span><p>Carregando...</p></div>
+            </div>
+        </section>
+
+        <!-- ══════════════ TURMAS ══════════════ -->
+        <section id="turmas">
+            <div class="page-header"><h1>🏫 Minhas Turmas</h1></div>
             <div class="section-card">
                 <h2>Turmas Matriculado</h2>
                 <ul class="lista" id="listaTurmas"></ul>
             </div>
         </section>
 
-        <!-- DISCIPLINAS -->
+        <!-- ══════════════ DISCIPLINAS ══════════════ -->
         <section id="disciplinas">
-            <div class="page-header">
-                <h1>📚 Disciplinas</h1>
-            </div>
+            <div class="page-header"><h1>📚 Disciplinas</h1></div>
             <div class="section-card">
                 <h2>Disciplinas Disponíveis</h2>
                 <ul class="lista" id="listaDisciplinas"></ul>
@@ -114,14 +205,220 @@
 </div>
 <script src="script.js"></script>
 <script>
-    mostrarUsuario();
-    carregarTurmas();
-    carregarDisciplinas();
-    // Dashboard stats
-    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
-        .then(r => r.json()).then(d => { const el = document.getElementById("totalTurmas"); if(el) el.innerText = d.length; }).catch(()=>{});
-    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() })
-        .then(r => r.json()).then(d => { const el = document.getElementById("totalDisciplinas"); if(el) el.innerText = d.length; }).catch(()=>{});
+const API = "http://localhost:8080/api";
+
+mostrarUsuario();
+
+const eu = getUsuario();
+
+async function init() {
+    if (!eu || !eu.id) return;
+
+    const [notasRes, trabRes, freqRes, discRes, turmasRes] = await Promise.all([
+        fetch(`${API}/notas/aluno/${eu.id}`,      { headers: authHeaders() }),
+        fetch(`${API}/trabalhos/aluno/${eu.id}`,  { headers: authHeaders() }),
+        fetch(`${API}/frequencias/aluno/${eu.id}`,{ headers: authHeaders() }),
+        fetch(`${API}/disciplinas`,               { headers: authHeaders() }),
+        fetch(`${API}/turmas`,                    { headers: authHeaders() })
+    ]);
+
+    const notas      = await notasRes.json().catch(() => []);
+    const trabalhos  = await trabRes.json().catch(() => []);
+    const freqs      = await freqRes.json().catch(() => []);
+    const disciplinas= await discRes.json().catch(() => []);
+    const turmas     = await turmasRes.json().catch(() => []);
+
+    // ── Dashboard ──
+    document.getElementById("totalNotas").innerText     = notas.length;
+    document.getElementById("totalTrabalhos").innerText = trabalhos.length;
+    document.getElementById("totalDisciplinas").innerText = disciplinas.length;
+
+    // Frequência geral (média de todas as disciplinas)
+    const total     = freqs.length;
+    const presencas = freqs.filter(f => f.presente).length;
+    const pct       = total > 0 ? Math.round(presencas * 100 / total) : null;
+    document.getElementById("percentualPresenca").innerText = pct !== null ? pct + "%" : "—";
+
+    // ── Notas ──
+    renderNotas(notas, disciplinas);
+
+    // ── Trabalhos ──
+    renderTrabalhos(trabalhos);
+
+    // ── Frequência por disciplina ──
+    renderFrequencias(freqs, disciplinas);
+
+    // ── Turmas ──
+    const listaTurmas = document.getElementById("listaTurmas");
+    listaTurmas.innerHTML = turmas.length
+        ? turmas.map(t => `<li>🏫 <strong>${t.nome}</strong> — ${t.ano} <span class="badge badge-blue">${t.periodo}</span></li>`).join("")
+        : '<li>Nenhuma turma encontrada</li>';
+
+    // ── Disciplinas ──
+    const listaDisciplinas = document.getElementById("listaDisciplinas");
+    listaDisciplinas.innerHTML = disciplinas.length
+        ? disciplinas.map(d => `<li>📚 <strong>${d.nome}</strong> <span class="badge badge-blue">${d.codigo || ""}</span></li>`).join("")
+        : '<li>Nenhuma disciplina encontrada</li>';
+}
+
+// ──────────────────────────────────────────────
+// NOTAS — agrupadas por disciplina
+// ──────────────────────────────────────────────
+function renderNotas(notas, disciplinas) {
+    const container = document.getElementById("listaNotas");
+    if (!notas.length) {
+        container.innerHTML = '<div class="empty-state"><span>📝</span><p>Nenhuma nota lançada ainda</p></div>';
+        return;
+    }
+
+    // Agrupa por disciplina
+    const mapa = {};
+    notas.forEach(n => {
+        const disc = n.disciplina?.nome || "Disciplina";
+        if (!mapa[disc]) mapa[disc] = { bimestres: {}, notaFinal: n.notaFinal };
+        mapa[disc].bimestres[n.bimestre] = n.valor;
+        if (n.notaFinal) mapa[disc].notaFinal = n.notaFinal;
+    });
+
+    container.innerHTML = Object.entries(mapa).map(([disc, dados]) => {
+        const bimestresHtml = [1,2,3,4].map(b => {
+            const v = dados.bimestres[b];
+            if (v === undefined) return `<div class="nota-display" style="opacity:.35">
+                <div class="nota-circle neutro" style="font-size:13px">—</div>
+                <div class="nota-info"><strong style="color:#aaa">${b}º Bimestre</strong><span>Não lançado</span></div>
+            </div>`;
+            const cls = v >= 7 ? "aprovado" : v >= 5 ? "neutro" : "reprovado";
+            return `<div class="nota-display">
+                <div class="nota-circle ${cls}">${v.toFixed(1)}</div>
+                <div class="nota-info"><strong>${b}º Bimestre</strong><span>Nota: ${v.toFixed(1)}</span></div>
+            </div>`;
+        }).join("");
+
+        const media = dados.notaFinal;
+        const mediaCls = media >= 7 ? "aprovado" : media >= 5 ? "neutro" : "reprovado";
+        const mediaBadge = media !== null && media !== undefined
+            ? `<div class="nota-display" style="margin-top:8px;border-top:1px solid #e5e7eb;padding-top:12px">
+                <div class="nota-circle ${mediaCls}" style="width:64px;height:64px;font-size:20px">${media.toFixed(1)}</div>
+                <div class="nota-info"><strong>Média Final</strong>
+                    <span class="badge ${mediaCls === 'aprovado' ? 'badge-green' : mediaCls === 'reprovado' ? 'badge-red' : 'badge-blue'}"
+                        style="margin-top:4px">${media >= 5 ? 'Aprovado' : 'Reprovado'}</span>
+                </div>
+               </div>`
+            : "";
+
+        return `<div class="disc-bloco">
+            <h4>📚 ${disc}</h4>
+            ${bimestresHtml}
+            ${mediaBadge}
+        </div>`;
+    }).join("");
+}
+
+// ──────────────────────────────────────────────
+// TRABALHOS — com nota mín, máx e do aluno
+// ──────────────────────────────────────────────
+function renderTrabalhos(trabalhos) {
+    const container = document.getElementById("listaTrabalhos");
+    if (!trabalhos.length) {
+        container.innerHTML = '<div class="empty-state"><span>📋</span><p>Nenhum trabalho avaliado ainda</p></div>';
+        return;
+    }
+
+    container.innerHTML = trabalhos.map(t => {
+        const data   = new Date(t.dataEntrega + "T12:00:00").toLocaleDateString("pt-BR");
+        const nota   = t.notaAluno;
+        const min    = t.notaMinima;
+        const max    = t.notaMaxima;
+        const range  = max - min;
+        const pct    = range > 0 ? Math.max(0, Math.min(100, ((nota - min) / range) * 100)) : 0;
+        const cls    = nota >= (max * 0.7) ? "ok" : nota >= (max * 0.5) ? "mid" : "low";
+        const notaCls= nota >= (max * 0.7) ? "aprovado" : nota >= (max * 0.5) ? "neutro" : "reprovado";
+
+        return `
+        <div class="trabalho-card">
+            <div class="trabalho-card-info">
+                <strong>${t.titulo}</strong>
+                <span>📚 ${t.disciplina} &nbsp;|&nbsp; 📅 Entrega: ${data}</span>
+                ${t.descricao ? `<span style="color:#bbb;font-size:12px">${t.descricao}</span>` : ""}
+            </div>
+            <div class="trabalho-nota-wrap">
+                <div class="label">sua nota</div>
+                <div class="nota-circle ${notaCls}" style="margin:6px auto;width:54px;height:54px;font-size:18px">
+                    ${nota.toFixed(1)}
+                </div>
+                <div class="faixa" style="font-size:11px;color:#aaa;text-align:center">${min} – ${max}</div>
+                <div class="nota-mini-bar-wrap">
+                    <div class="nota-mini-bar ${cls}" style="width:${pct}%"></div>
+                </div>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+// ──────────────────────────────────────────────
+// FREQUÊNCIA — por disciplina com %
+// ──────────────────────────────────────────────
+function renderFrequencias(freqs, disciplinas) {
+    const container = document.getElementById("secaoFrequencias");
+    if (!freqs.length) {
+        container.innerHTML = '<div class="section-card"><div class="empty-state"><span>📅</span><p>Nenhum registro de frequência ainda</p></div></div>';
+        return;
+    }
+
+    // Agrupa por disciplina
+    const mapa = {};
+    freqs.forEach(f => {
+        const disc = f.disciplina?.nome || "Disciplina";
+        if (!mapa[disc]) mapa[disc] = { total: 0, presencas: 0, faltas: [] };
+        mapa[disc].total++;
+        if (f.presente) {
+            mapa[disc].presencas++;
+        } else {
+            mapa[disc].faltas.push({ data: f.data, obs: f.observacao });
+        }
+    });
+
+    container.innerHTML = Object.entries(mapa).map(([disc, dados]) => {
+        const pct    = Math.round(dados.presencas * 100 / dados.total);
+        const cls    = pct >= 75 ? "ok" : "warn";
+        const status = pct >= 75
+            ? `<span class="badge badge-green">✅ Aprovado por frequência</span>`
+            : `<span class="badge badge-red">⚠️ Risco de reprovação por falta</span>`;
+
+        const faltasHtml = dados.faltas.length
+            ? dados.faltas.map(f => {
+                const data = new Date(f.data + "T12:00:00").toLocaleDateString("pt-BR");
+                return `<div class="falta-item">
+                    ❌ <span class="data">${data}</span>
+                    ${f.obs ? `<span class="badge badge-yellow">${f.obs}</span>` : ""}
+                </div>`;
+              }).join("")
+            : '<p style="font-size:13px;color:#aaa;margin-top:8px">Nenhuma falta registrada 🎉</p>';
+
+        return `
+        <div class="section-card">
+            <h2>📚 ${disc}</h2>
+            <div class="freq-resumo">
+                <div class="freq-pct ${cls}">${pct}%</div>
+                <div style="flex:1">
+                    <div class="freq-bar-wrap">
+                        <div class="freq-bar ${cls}" style="width:${pct}%"></div>
+                    </div>
+                    <div class="freq-info" style="margin-top:8px">
+                        <strong>${dados.presencas}</strong> presenças &nbsp;|&nbsp;
+                        <strong>${dados.faltas.length}</strong> faltas &nbsp;|&nbsp;
+                        <strong>${dados.total}</strong> aulas registradas
+                    </div>
+                </div>
+                <div>${status}</div>
+            </div>
+            ${dados.faltas.length ? `<h4 style="font-size:13px;color:#666;margin-bottom:8px">Datas de falta:</h4>` : ""}
+            ${faltasHtml}
+        </div>`;
+    }).join("");
+}
+
+init();
 </script>
 </body>
 </html>

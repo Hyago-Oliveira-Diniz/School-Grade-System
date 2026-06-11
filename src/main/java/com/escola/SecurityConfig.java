@@ -35,25 +35,62 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login", "/api/cadastro").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
+
                         .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/turmas/**", "/api/disciplinas/**")
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/turmas/**",
+                                "/api/disciplinas/**")
                         .hasAnyRole("ADMIN", "PROFESSOR")
-                        .requestMatchers(HttpMethod.PUT, "/api/turmas/**", "/api/disciplinas/**")
+
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/turmas/**",
+                                "/api/disciplinas/**")
                         .hasAnyRole("ADMIN", "PROFESSOR")
-                        .requestMatchers(HttpMethod.DELETE, "/api/turmas/**", "/api/disciplinas/**")
+
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/turmas/**",
+                                "/api/disciplinas/**")
                         .hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/professores/**", "/api/alunos/**")
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/professores/**",
+                                "/api/alunos/**")
                         .hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/professores/**", "/api/alunos/**")
+
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/professores/**",
+                                "/api/alunos/**")
                         .hasAnyRole("ADMIN", "PROFESSOR")
-                        .requestMatchers(HttpMethod.DELETE, "/api/professores/**", "/api/alunos/**")
+
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/professores/**",
+                                "/api/alunos/**")
                         .hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/notas/**", "/api/frequencias/**")
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/notas/**",
+                                "/api/frequencias/**")
                         .hasAnyRole("ADMIN", "PROFESSOR")
-                        .requestMatchers(HttpMethod.GET, "/api/turmas/**", "/api/disciplinas/**",
-                                "/api/alunos/**", "/api/professores/**",
-                                "/api/notas/**", "/api/frequencias/**")
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/trabalhos/**")
+                        .hasAnyRole("ADMIN", "PROFESSOR")
+
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/turmas/**",
+                                "/api/disciplinas/**",
+                                "/api/alunos/**",
+                                "/api/professores/**",
+                                "/api/notas/**",
+                                "/api/frequencias/**",
+                                "/api/trabalhos/**")
                         .hasAnyRole("ADMIN", "PROFESSOR", "ALUNO", "RESPONSAVEL")
+
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/trabalhos/**")
+                        .hasRole("ADMIN")
+
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

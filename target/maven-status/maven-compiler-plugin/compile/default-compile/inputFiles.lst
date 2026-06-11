@@ -5,13 +5,17 @@ C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\co
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\JwtService.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaService.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\SecurityConfig.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Trabalho.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\UsuarioRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\JwtFilter.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Nota.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\DisciplinaRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\FrequenciaService.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaTrabalho.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\DisciplinaController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\AlunoController.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\TrabalhoController.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\TrabalhoRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Disciplina.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Frequencia.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Turma.java
@@ -26,5 +30,6 @@ C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\co
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\UsuarioService.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\FrequenciaController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaController.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaTrabalhoRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\TurmaRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\EscolaApplication.java
