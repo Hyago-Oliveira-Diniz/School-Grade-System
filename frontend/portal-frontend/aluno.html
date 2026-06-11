@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Aluno — Portal Escolar</title>
+    <link rel="stylesheet" href="logado.css">
+</head>
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🎓 Portal Escolar</h2>
+            <p>Painel do Aluno</p>
+        </div>
+        <nav>
+            <ul>
+                <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
+                <li data-secao="notas" onclick="mostrarSecao('notas')">📝 Minhas Notas</li>
+                <li data-secao="frequencias" onclick="mostrarSecao('frequencias')">📅 Frequência</li>
+                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Minhas Turmas</li>
+                <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <strong id="usuarioLogado">—</strong>
+                <span id="tipoUsuario">Aluno</span>
+            </div>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="active">
+            <div class="page-header">
+                <h1>Bem-vindo! 👋</h1>
+                <p>Acompanhe seu desempenho acadêmico</p>
+            </div>
+            <div class="cards-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="totalNotas">—</div>
+                    <div class="stat-label">Notas Lançadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="percentualPresenca">—</div>
+                    <div class="stat-label">Frequência</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏫</div>
+                    <div class="stat-value" id="totalTurmas">—</div>
+                    <div class="stat-label">Turmas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="totalDisciplinas">—</div>
+                    <div class="stat-label">Disciplinas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTAS -->
+        <section id="notas">
+            <div class="page-header">
+                <h1>📝 Minhas Notas</h1>
+                <p>Notas por bimestre e média final</p>
+            </div>
+            <div class="section-card">
+                <h2>Notas por Disciplina</h2>
+                <div id="listaNotas"><div class="empty-state"><span>📝</span><p>Carregando...</p></div></div>
+            </div>
+        </section>
+
+        <!-- FREQUÊNCIAS -->
+        <section id="frequencias">
+            <div class="page-header">
+                <h1>📅 Frequência</h1>
+                <p>Registro de presença por aula</p>
+            </div>
+            <div class="section-card">
+                <h2>Histórico de Presença</h2>
+                <ul class="lista" id="listaFrequencias"></ul>
+            </div>
+        </section>
+
+        <!-- TURMAS -->
+        <section id="turmas">
+            <div class="page-header">
+                <h1>🏫 Minhas Turmas</h1>
+            </div>
+            <div class="section-card">
+                <h2>Turmas Matriculado</h2>
+                <ul class="lista" id="listaTurmas"></ul>
+            </div>
+        </section>
+
+        <!-- DISCIPLINAS -->
+        <section id="disciplinas">
+            <div class="page-header">
+                <h1>📚 Disciplinas</h1>
+            </div>
+            <div class="section-card">
+                <h2>Disciplinas Disponíveis</h2>
+                <ul class="lista" id="listaDisciplinas"></ul>
+            </div>
+        </section>
+
+    </main>
+</div>
+<script src="script.js"></script>
+<script>
+    mostrarUsuario();
+    carregarTurmas();
+    carregarDisciplinas();
+    // Dashboard stats
+    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
+        .then(r => r.json()).then(d => { const el = document.getElementById("totalTurmas"); if(el) el.innerText = d.length; }).catch(()=>{});
+    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() })
+        .then(r => r.json()).then(d => { const el = document.getElementById("totalDisciplinas"); if(el) el.innerText = d.length; }).catch(()=>{});
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Painel Professor - Portal Escolar</title>
+    <title>Painel Admin - Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
 </head>
 <body>
@@ -14,11 +14,13 @@
         <h2>📚 Escola</h2>
         <ul>
             <li onclick="mostrarSecao('dashboard')">Dashboard</li>
-            <li onclick="mostrarSecao('turmas')">Turmas</li>
+            <li onclick="mostrarSecao('usuarios')">Usuários</li>
             <li onclick="mostrarSecao('alunos')">Alunos</li>
             <li onclick="mostrarSecao('professores')">Professores</li>
-            <li onclick="mostrarSecao('notas')">Consultar Notas</li>
-            <li onclick="mostrarSecao('frequencias')">Consultar Frequências</li>
+            <li onclick="mostrarSecao('turmas')">Turmas</li>
+            <li onclick="mostrarSecao('disciplinas')">Disciplinas</li>
+            <li onclick="mostrarSecao('notas')">Notas</li>
+            <li onclick="mostrarSecao('frequencias')">Frequências</li>
             <li onclick="mostrarSecao('lancarNota')">Lançar Nota</li>
             <li onclick="mostrarSecao('lancarFrequencia')">Lançar Frequência</li>
         </ul>
@@ -34,14 +36,14 @@
 
         <!-- DASHBOARD -->
         <section id="dashboard">
-            <h2>Bem-vindo ao sistema</h2>
-            <p>Use o menu lateral para lançar notas, registrar frequências e visualizar seus alunos.</p>
+            <h2>Painel Administrativo</h2>
+            <p>Bem-vindo, administrador! Use o menu lateral para gerenciar o sistema.</p>
         </section>
 
-        <!-- TURMAS -->
-        <section id="turmas" style="display:none;">
-            <h2>Turmas</h2>
-            <ul id="listaTurmas"></ul>
+        <!-- USUÁRIOS -->
+        <section id="usuarios" style="display:none;">
+            <h2>Usuários Cadastrados</h2>
+            <ul id="listaUsuarios"></ul>
         </section>
 
         <!-- ALUNOS -->
@@ -56,13 +58,36 @@
             <ul id="listaProfessores"></ul>
         </section>
 
-        <!-- CONSULTAR NOTAS -->
+        <!-- TURMAS -->
+        <section id="turmas" style="display:none;">
+            <h2>Turmas</h2>
+            <div class="form-inline">
+                <input id="turmaNome"    type="text" placeholder="Nome (ex: 3º Ano A)">
+                <input id="turmaAno"     type="text" placeholder="Ano (ex: 2025)">
+                <input id="turmaPeriodo" type="text" placeholder="Período (Manhã/Tarde/Noite)">
+                <button onclick="criarTurma()">+ Criar Turma</button>
+            </div>
+            <ul id="listaTurmas"></ul>
+        </section>
+
+        <!-- DISCIPLINAS -->
+        <section id="disciplinas" style="display:none;">
+            <h2>Disciplinas</h2>
+            <div class="form-inline">
+                <input id="discNome"   type="text" placeholder="Nome da disciplina">
+                <input id="discCodigo" type="text" placeholder="Código (ex: MAT101)">
+                <button onclick="criarDisciplina()">+ Criar Disciplina</button>
+            </div>
+            <ul id="listaDisciplinas"></ul>
+        </section>
+
+        <!-- NOTAS -->
         <section id="notas" style="display:none;">
             <h2>Consultar Notas</h2>
             <ul id="listaNotas"></ul>
         </section>
 
-        <!-- CONSULTAR FREQUÊNCIAS -->
+        <!-- FREQUÊNCIAS -->
         <section id="frequencias" style="display:none;">
             <h2>Consultar Frequências</h2>
             <ul id="listaFrequencias"></ul>

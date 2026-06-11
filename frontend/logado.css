@@ -128,3 +128,85 @@ input:focus {
     font-size: 14px;
     font-weight: bold;
 }
+
+/* Formulários inline (ex: criar turma/disciplina) */
+.form-inline {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+.form-inline input, .form-inline select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    flex: 1;
+    min-width: 140px;
+}
+.form-inline button {
+    padding: 8px 16px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.form-inline button:hover { background: #4338ca; }
+
+/* Formulário de lançamento (nota/frequência) */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 420px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+.form-card label { font-weight: 600; font-size: 14px; margin-bottom: -4px; }
+.form-card input, .form-card select {
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.form-card button {
+    margin-top: 6px;
+    padding: 10px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+}
+.form-card button:hover { background: #15803d; }
+
+/* Formulário de busca por aluno */
+.form-busca {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.form-busca label { font-weight: 600; }
+.form-busca input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 140px;
+}
+.form-busca button {
+    padding: 8px 14px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.form-busca button:hover { background: #1d4ed8; }

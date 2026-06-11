@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Escolar — Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="logo">
+            <span>🎓</span>
+            <h1>Portal Escolar</h1>
+            <p>Sistema de Gestão Acadêmica</p>
+        </div>
+
+        <input id="loginUsuario" type="text" placeholder="Usuário">
+        <input id="loginSenha" type="password" placeholder="Senha">
+
+        <button class="btn-primary" onclick="login()">Entrar</button>
+
+        <div class="divider">Não tem conta? Cadastre-se como:</div>
+
+        <a href="cadastro-professor.html"><button class="btn-secondary">👨‍🏫 Professor</button></a>
+        <a href="cadastro-aluno.html"><button class="btn-secondary">🎓 Aluno</button></a>
+        <a href="cadastro-responsavel.html"><button class="btn-secondary">👨‍👧 Responsável</button></a>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

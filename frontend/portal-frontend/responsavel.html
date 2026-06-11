@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Responsável — Portal Escolar</title>
+    <link rel="stylesheet" href="logado.css">
+</head>
+<body>
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🎓 Portal Escolar</h2>
+            <p>Painel do Responsável</p>
+        </div>
+        <nav>
+            <ul>
+                <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
+                <li data-secao="notas" onclick="mostrarSecao('notas')">📝 Notas do Aluno</li>
+                <li data-secao="frequencias" onclick="mostrarSecao('frequencias')">📅 Frequência</li>
+                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas</li>
+                <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <strong id="usuarioLogado">—</strong>
+                <span id="tipoUsuario">Responsável</span>
+            </div>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="active">
+            <div class="page-header">
+                <h1>Olá, Responsável 👨‍👧</h1>
+                <p>Acompanhe o desempenho acadêmico</p>
+            </div>
+
+            <div class="section-card" style="margin-bottom:20px;">
+                <h2>🔍 Consultar Aluno</h2>
+                <div class="form-row">
+                    <input id="alunoIdConsulta" type="number" placeholder="ID do Aluno">
+                    <input id="disciplinaIdConsulta" type="number" placeholder="ID da Disciplina">
+                    <button class="btn btn-primary" onclick="consultarResumo()">Consultar</button>
+                </div>
+                <div id="resumoFrequencia" style="margin-top:16px;"></div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏫</div>
+                    <div class="stat-value" id="totalTurmas">—</div>
+                    <div class="stat-label">Turmas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="totalDisciplinas">—</div>
+                    <div class="stat-label">Disciplinas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTAS -->
+        <section id="notas">
+            <div class="page-header">
+                <h1>📝 Notas do Aluno</h1>
+                <p>Informe o ID do aluno para consultar</p>
+            </div>
+            <div class="section-card">
+                <h2>Consultar Notas</h2>
+                <div class="form-row">
+                    <input id="notasAlunoId" type="number" placeholder="ID do Aluno">
+                    <button class="btn btn-primary" onclick="consultarNotas()">Buscar</button>
+                </div>
+                <div id="listaNotas" style="margin-top:16px;"></div>
+            </div>
+        </section>
+
+        <!-- FREQUÊNCIAS -->
+        <section id="frequencias">
+            <div class="page-header">
+                <h1>📅 Frequência</h1>
+            </div>
+            <div class="section-card">
+                <h2>Consultar Frequência</h2>
+                <div class="form-row">
+                    <input id="freqAlunoIdResp" type="number" placeholder="ID do Aluno">
+                    <button class="btn btn-primary" onclick="consultarFrequenciaResp()">Buscar</button>
+                </div>
+                <ul class="lista" id="listaFrequencias" style="margin-top:16px;"></ul>
+            </div>
+        </section>
+
+        <!-- TURMAS -->
+        <section id="turmas">
+            <div class="page-header"><h1>🏫 Turmas</h1></div>
+            <div class="section-card">
+                <h2>Turmas Disponíveis</h2>
+                <ul class="lista" id="listaTurmas"></ul>
+            </div>
+        </section>
+
+        <!-- DISCIPLINAS -->
+        <section id="disciplinas">
+            <div class="page-header"><h1>📚 Disciplinas</h1></div>
+            <div class="section-card">
+                <h2>Disciplinas</h2>
+                <ul class="lista" id="listaDisciplinas"></ul>
+            </div>
+        </section>
+
+    </main>
+</div>
+<script src="script.js"></script>
+<script>
+    mostrarUsuario();
+
+    function consultarResumo() {
+        const alunoId = document.getElementById("alunoIdConsulta").value;
+        const disciplinaId = document.getElementById("disciplinaIdConsulta").value;
+        if (!alunoId || !disciplinaId) { alert("Informe o ID do aluno e da disciplina!"); return; }
+        fetch(`http://localhost:8080/api/frequencias/resumo/${alunoId}/${disciplinaId}`, { headers: authHeaders() })
+        .then(r => r.json())
+        .then(data => {
+            const cor = data.percentualPresenca >= 75 ? "#dcfce7" : "#fee2e2";
+            const badge = data.situacao === "APROVADO" ? "badge-green" : "badge-red";
+            document.getElementById("resumoFrequencia").innerHTML = `
+                <div style="background:${cor};padding:16px;border-radius:10px;">
+                    <strong>Presença: ${data.percentualPresenca}%</strong> —
+                    Presenças: ${data.presencas} | Faltas: ${data.faltas} | Total: ${data.total}
+                    <span class="badge ${badge}" style="margin-left:8px;">${data.situacao}</span>
+                </div>`;
+        }).catch(() => { document.getElementById("resumoFrequencia").innerHTML = '<p style="color:red">Erro ao consultar.</p>'; });
+    }
+
+    function consultarNotas() {
+        const alunoId = document.getElementById("notasAlunoId").value;
+        if (!alunoId) { alert("Informe o ID do aluno!"); return; }
+        fetch(`http://localhost:8080/api/notas/aluno/${alunoId}`, { headers: authHeaders() })
+        .then(r => r.json())
+        .then(notas => {
+            if (!notas.length) { document.getElementById("listaNotas").innerHTML = '<p>Nenhuma nota encontrada.</p>'; return; }
+            document.getElementById("listaNotas").innerHTML = notas.map(n => {
+                const v = n.valor || 0;
+                const cls = v >= 7 ? "aprovado" : v >= 5 ? "neutro" : "reprovado";
+                return `<div class="nota-display">
+                    <div class="nota-circle ${cls}">${v.toFixed(1)}</div>
+                    <div class="nota-info">
+                        <strong>${n.disciplina?.nome || "Disciplina"}</strong>
+                        <span>${n.bimestre ? n.bimestre + "º Bimestre" : ""} ${n.notaFinal ? "| Média: " + n.notaFinal : ""}</span>
+                    </div>
+                </div>`;
+            }).join("");
+        }).catch(() => {});
+    }
+
+    function consultarFrequenciaResp() {
+        const alunoId = document.getElementById("freqAlunoIdResp").value;
+        if (!alunoId) { alert("Informe o ID do aluno!"); return; }
+        fetch(`http://localhost:8080/api/frequencias/aluno/${alunoId}`, { headers: authHeaders() })
+        .then(r => r.json())
+        .then(freqs => {
+            const lista = document.getElementById("listaFrequencias");
+            if (!freqs.length) { lista.innerHTML = '<li>Nenhum registro encontrado.</li>'; return; }
+            lista.innerHTML = freqs.map(f => `
+                <li>${f.presente ? "✅" : "❌"} <strong>${f.disciplina?.nome || "—"}</strong> — ${f.data}
+                ${f.observacao ? '<span class="badge badge-yellow">' + f.observacao + '</span>' : ""}</li>
+            `).join("");
+        }).catch(() => {});
+    }
+
+    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
+        .then(r => r.json()).then(d => { document.getElementById("totalTurmas").innerText = d.length; }).catch(()=>{});
+    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() })
+        .then(r => r.json()).then(d => { document.getElementById("totalDisciplinas").innerText = d.length; }).catch(()=>{});
+</script>
+</body>
+</html>

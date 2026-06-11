@@ -27,17 +27,15 @@ public class UsuarioController {
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody Usuario login) {
-        // Autentica o usuário
         Usuario usuario = usuarioService.autenticar(login.getUsuario(), login.getSenha());
-
-        // Gera o token JWT
         String token = jwtService.gerarToken(usuario);
 
-        // Retorna o token + dados básicos do usuário (sem senha)
+        // Retorna id junto com os demais dados — necessário para o frontend buscar notas/frequências
         return Map.of(
-            "token", token,
-            "tipo", usuario.getTipo(),
-            "nome", usuario.getNome(),
+            "token",   token,
+            "id",      usuario.getId(),
+            "tipo",    usuario.getTipo(),
+            "nome",    usuario.getNome(),
             "usuario", usuario.getUsuario()
         );
     }
