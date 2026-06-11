@@ -2,26 +2,33 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Aluno - Portal Escolar</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h1>Cadastro Aluno</h1>
+        <div class="logo">
+            <span>🎓</span>
+            <h1>Cadastro Aluno</h1>
+            <p>Acesse suas notas, trabalhos e turmas</p>
+        </div>
 
         <input id="nome"      type="text"     placeholder="Nome completo">
         <input id="usuario"   type="text"     placeholder="Usuário (login)">
         <input id="senha"     type="password" placeholder="Senha">
         <input id="matricula" type="text"     placeholder="Matrícula">
 
-        <button onclick="cadastrarAluno()">Cadastrar</button>
+        <button class="btn-primary" onclick="cadastrarAluno()">Cadastrar</button>
 
-        <a href="index.html">Voltar</a>
+        <div class="text-center">
+            <a href="index.html">← Voltar ao login</a>
+        </div>
     </div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>

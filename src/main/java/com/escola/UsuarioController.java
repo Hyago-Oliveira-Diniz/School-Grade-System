@@ -1,5 +1,6 @@
 package com.escola;
 
+import com.escola.dto.UsuarioRegistroDTO; // <-- Import correto aqui no topo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class UsuarioController {
     private JwtService jwtService;
 
     @PostMapping("/cadastro")
-    public Usuario cadastrar(@RequestBody Usuario usuario) {
-        return usuarioService.cadastrar(usuario);
+    public Usuario cadastrar(@RequestBody UsuarioRegistroDTO dto) {
+        return usuarioService.cadastrar(dto);
     }
 
     @PostMapping("/login")
@@ -32,11 +33,11 @@ public class UsuarioController {
 
         // Retorna id junto com os demais dados — necessário para o frontend buscar notas/frequências
         return Map.of(
-            "token",   token,
-            "id",      usuario.getId(),
-            "tipo",    usuario.getTipo(),
-            "nome",    usuario.getNome(),
-            "usuario", usuario.getUsuario()
+                "token",   token,
+                "id",      usuario.getId(),
+                "tipo",    usuario.getTipo(),
+                "nome",    usuario.getNome(),
+                "usuario", usuario.getUsuario()
         );
     }
 

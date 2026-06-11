@@ -2,15 +2,19 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Professor - Portal Escolar</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="card">
-        <h1>Cadastro Professor</h1>
+        <div class="logo">
+            <span>👨‍🏫</span>
+            <h1>Cadastro Professor</h1>
+            <p>Gerencie suas turmas e lance notas</p>
+        </div>
 
         <input id="nome"      type="text"     placeholder="Nome completo">
         <input id="usuario"   type="text"     placeholder="Usuário (login)">
@@ -18,11 +22,14 @@
         <input id="materia"   type="text"     placeholder="Matéria">
         <input id="registro"  type="text"     placeholder="Registro profissional">
 
-        <button onclick="cadastrarProfessor()">Cadastrar</button>
+        <button class="btn-primary" onclick="cadastrarProfessor()">Cadastrar</button>
 
-        <a href="index.html">Voltar</a>
+        <div class="text-center">
+            <a href="index.html">← Voltar ao login</a>
+        </div>
     </div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>

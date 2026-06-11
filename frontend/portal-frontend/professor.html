@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Professor — Portal Escolar</title>
+    <title>Painel do Professor — Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
 </head>
 <body>
@@ -20,8 +20,8 @@
                 <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas</li>
                 <li data-secao="alunos" onclick="mostrarSecao('alunos')">🎓 Alunos</li>
                 <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
-                <li data-secao="notas" onclick="mostrarSecao('notas')">📝 Lançar Notas</li>
-                <li data-secao="frequencias" onclick="mostrarSecao('frequencias')">📅 Frequência</li>
+                <li data-secao="lancarnotas" onclick="mostrarSecao('lancarnotas')">📝 Lançar Notas</li>
+                <li data-secao="frequencia" onclick="mostrarSecao('frequencia')">📅 Frequência</li>
             </ul>
         </nav>
         <div class="sidebar-footer">
@@ -35,60 +35,50 @@
 
     <main class="content">
 
-        <!-- DASHBOARD -->
         <section id="dashboard" class="active">
             <div class="page-header">
                 <h1>Painel do Professor 👨‍🏫</h1>
-                <p>Gerencie turmas, alunos e notas</p>
+                <p>Bem-vindo ao seu portal de gestão acadêmica</p>
             </div>
             <div class="cards-grid">
                 <div class="stat-card">
-                    <div class="stat-icon">🏫</div>
-                    <div class="stat-value" id="totalTurmas">—</div>
-                    <div class="stat-label">Turmas</div>
-                </div>
-                <div class="stat-card">
                     <div class="stat-icon">🎓</div>
                     <div class="stat-value" id="totalAlunos">—</div>
-                    <div class="stat-label">Alunos</div>
+                    <div class="stat-label">Alunos Matriculados</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">📚</div>
-                    <div class="stat-value" id="totalDisciplinas">—</div>
-                    <div class="stat-label">Disciplinas</div>
+                    <div class="stat-icon">🏫</div>
+                    <div class="stat-value" id="totalTurmas">—</div>
+                    <div class="stat-label">Minhas Turmas</div>
                 </div>
             </div>
         </section>
 
-        <!-- TURMAS -->
         <section id="turmas">
             <div class="page-header"><h1>🏫 Turmas</h1></div>
             <div class="section-card">
-                <h2>Turmas Cadastradas</h2>
+                <h2>Turmas da Escola</h2>
                 <ul class="lista" id="listaTurmas"></ul>
             </div>
         </section>
 
-        <!-- ALUNOS -->
         <section id="alunos">
             <div class="page-header"><h1>🎓 Alunos</h1></div>
             <div class="section-card">
-                <h2>Lista de Alunos</h2>
+                <h2>Alunos Matriculados</h2>
                 <ul class="lista" id="listaAlunos"></ul>
             </div>
         </section>
 
-        <!-- DISCIPLINAS -->
         <section id="disciplinas">
             <div class="page-header"><h1>📚 Disciplinas</h1></div>
             <div class="section-card">
-                <h2>Disciplinas</h2>
+                <h2>Disciplinas Disponíveis</h2>
                 <ul class="lista" id="listaDisciplinas"></ul>
             </div>
         </section>
 
-        <!-- NOTAS -->
-        <section id="notas">
+        <section id="lancarnotas">
             <div class="page-header">
                 <h1>📝 Lançar Notas</h1>
                 <p>Registre as notas dos alunos por bimestre</p>
@@ -96,89 +86,68 @@
             <div class="section-card">
                 <h2>Lançar Nota</h2>
                 <div class="form-row">
-                    <input id="notaAlunoId"      type="number" placeholder="ID do Aluno">
-                    <input id="notaDisciplinaId" type="number" placeholder="ID da Disciplina">
+                    <select id="notaAlunoId">
+                        <option value="">Carregando alunos...</option>
+                    </select>
+
+                    <select id="notaDisciplinaId">
+                        <option value="">Carregando disciplinas...</option>
+                    </select>
+
                     <select id="notaBimestre">
-                        <option value="">Bimestre</option>
+                        <option value="">Bimestre...</option>
                         <option value="1">1º Bimestre</option>
                         <option value="2">2º Bimestre</option>
                         <option value="3">3º Bimestre</option>
                         <option value="4">4º Bimestre</option>
                     </select>
+
                     <input id="notaValor" type="number" step="0.1" min="0" max="10" placeholder="Nota (0-10)">
+
+                    <button class="btn btn-primary" onclick="lancarNota()">Lançar</button>
                 </div>
-                <button class="btn btn-primary" onclick="lancarNota()">Lançar Nota</button>
-                <p id="notaMensagem" style="margin-top:10px;font-size:14px;"></p>
+                <p id="notaMensagem" style="margin:8px 0;font-size:14px;"></p>
             </div>
         </section>
 
-        <!-- FREQUÊNCIA -->
-        <section id="frequencias">
+        <section id="frequencia">
             <div class="page-header">
-                <h1>📅 Registrar Frequência</h1>
-                <p>Registre a presença dos alunos</p>
+                <h1>📅 Frequência</h1>
+                <p>Lançamento de chamadas</p>
             </div>
             <div class="section-card">
-                <h2>Registrar Presença</h2>
-                <div class="form-row">
-                    <input id="freqAlunoId"      type="number" placeholder="ID do Aluno">
-                    <input id="freqDisciplinaId" type="number" placeholder="ID da Disciplina">
-                    <input id="freqData"         type="date">
-                    <select id="freqPresente">
-                        <option value="true">✅ Presente</option>
-                        <option value="false">❌ Falta</option>
-                    </select>
-                </div>
-                <input id="freqObs" type="text" placeholder="Observação (opcional)" style="margin-bottom:12px">
-                <button class="btn btn-primary" onclick="registrarFrequencia()">Registrar</button>
-                <p id="freqMensagem" style="margin-top:10px;font-size:14px;"></p>
+                <p>Módulo de chamadas em construção...</p>
             </div>
         </section>
 
     </main>
 </div>
+
 <script src="script.js"></script>
 <script>
-    mostrarUsuario();
-
-    function lancarNota() {
-        const alunoId = document.getElementById("notaAlunoId").value;
-        const disciplinaId = document.getElementById("notaDisciplinaId").value;
-        const bimestre = document.getElementById("notaBimestre").value;
-        const valor = document.getElementById("notaValor").value;
-        if (!alunoId || !disciplinaId || !bimestre || !valor) { alert("Preencha todos os campos!"); return; }
-        fetch("http://localhost:8080/api/notas", {
-            method: "POST", headers: authHeaders(),
-            body: JSON.stringify({ alunoId, disciplinaId, bimestre, valor })
-        })
-        .then(r => r.json())
-        .then(() => { document.getElementById("notaMensagem").innerText = "✅ Nota lançada com sucesso!"; })
-        .catch(() => { document.getElementById("notaMensagem").innerText = "❌ Erro ao lançar nota."; });
+    // ==========================================
+    // 1. GUARDA DE ROTA (SEGURANÇA ESTrita)
+    // ==========================================
+    var userLogado = getUsuario();
+    // Agora APENAS usuários do tipo PROFESSOR conseguem acessar essa tela
+    if (!userLogado || userLogado.tipo !== "PROFESSOR") {
+        window.location.href = "index.html";
+    } else {
+        mostrarUsuario();
     }
 
-    function registrarFrequencia() {
-        const alunoId = document.getElementById("freqAlunoId").value;
-        const disciplinaId = document.getElementById("freqDisciplinaId").value;
-        const data = document.getElementById("freqData").value;
-        const presente = document.getElementById("freqPresente").value;
-        const observacao = document.getElementById("freqObs").value;
-        if (!alunoId || !disciplinaId || !data) { alert("Preencha os campos obrigatórios!"); return; }
-        fetch("http://localhost:8080/api/frequencias", {
-            method: "POST", headers: authHeaders(),
-            body: JSON.stringify({ alunoId, disciplinaId, data, presente, observacao })
-        })
-        .then(r => r.json())
-        .then(() => { document.getElementById("freqMensagem").innerText = "✅ Frequência registrada!"; })
-        .catch(() => { document.getElementById("freqMensagem").innerText = "❌ Erro ao registrar."; });
-    }
-
-    // Dashboard stats
-    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
-        .then(r => r.json()).then(d => { document.getElementById("totalTurmas").innerText = d.length; }).catch(()=>{});
+    // ==========================================
+    // 2. CARREGA DADOS INICIAIS DO DASHBOARD
+    // ==========================================
     fetch("http://localhost:8080/api/alunos", { headers: authHeaders() })
-        .then(r => r.json()).then(d => { document.getElementById("totalAlunos").innerText = d.length; }).catch(()=>{});
-    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() })
-        .then(r => r.json()).then(d => { document.getElementById("totalDisciplinas").innerText = d.length; }).catch(()=>{});
+        .then(r => r.ok ? r.json() : [])
+        .then(d => { document.getElementById("totalAlunos").innerText = d.length; })
+        .catch(() => { document.getElementById("totalAlunos").innerText = "0"; });
+
+    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
+        .then(r => r.ok ? r.json() : [])
+        .then(d => { document.getElementById("totalTurmas").innerText = d.length; })
+        .catch(() => { document.getElementById("totalTurmas").innerText = "0"; });
 </script>
 </body>
 </html>

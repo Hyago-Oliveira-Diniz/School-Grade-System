@@ -1,5 +1,6 @@
 package com.escola;
 
+import com.escola.dto.UsuarioRegistroDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -21,6 +24,9 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private ProfessorRepository professorRepository;
 
+    @Autowired
+    private ResponsavelRepository responsavelRepository;
+
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
@@ -32,40 +38,54 @@ public class UsuarioService implements UserDetailsService {
         return usuario;
     }
 
-    public Usuario cadastrar(Usuario usuarioInput) {
-        // Campos extras que vêm do body mas não existem em Usuario
-        String materia  = usuarioInput.getMateria();
-        String registro = usuarioInput.getRegistro();
-        String matricula = usuarioInput.getMatricula();
-
-        if (usuarioRepository.findByUsuario(usuarioInput.getUsuario()) != null) {
+    public Usuario cadastrar(UsuarioRegistroDTO dto) {
+        if (usuarioRepository.findByUsuario(dto.getUsuario()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe");
         }
 
-        usuarioInput.setSenha(encoder.encode(usuarioInput.getSenha()));
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setUsuario(dto.getUsuario());
+        novoUsuario.setNome(dto.getNome());
+        novoUsuario.setTipo(dto.getTipo());
+        novoUsuario.setSenha(encoder.encode(dto.getSenha()));
 
         Usuario usuarioSalvo;
         try {
-            usuarioSalvo = usuarioRepository.save(usuarioInput);
+            usuarioSalvo = usuarioRepository.save(novoUsuario);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao cadastrar usuário");
         }
 
-        // Cria automaticamente o perfil vinculado conforme o tipo
-        if (usuarioSalvo.getTipo() == TipoUsuario.ALUNO) {
+        if (dto.getTipo() == TipoUsuario.ALUNO) {
             Aluno aluno = new Aluno();
             aluno.setNome(usuarioSalvo.getNome());
             aluno.setUsuario(usuarioSalvo);
-            aluno.setMatricula(matricula != null ? matricula : "");
+            aluno.setMatricula(dto.getMatricula() != null ? dto.getMatricula() : "");
             alunoRepository.save(aluno);
 
-        } else if (usuarioSalvo.getTipo() == TipoUsuario.PROFESSOR) {
+        } else if (dto.getTipo() == TipoUsuario.PROFESSOR) {
             Professor professor = new Professor();
             professor.setNome(usuarioSalvo.getNome());
             professor.setUsuario(usuarioSalvo);
-            professor.setMateria(materia != null ? materia : "");
-            professor.setRegistro(registro != null ? registro : "");
+            professor.setMateria(dto.getMateria() != null ? dto.getMateria() : "");
+            professor.setRegistro(dto.getRegistro() != null ? dto.getRegistro() : "");
             professorRepository.save(professor);
+
+        } else if (dto.getTipo() == TipoUsuario.RESPONSAVEL) {
+            Responsavel responsavel = new Responsavel();
+            responsavel.setNome(usuarioSalvo.getNome());
+            responsavel.setUsuario(usuarioSalvo);
+            responsavel.setRg(dto.getRg());
+            responsavel.setTelefone(dto.getTelefone());
+
+            if (dto.getMatriculasAlunos() != null) {
+                List<Aluno> filhos = dto.getMatriculasAlunos().stream()
+                        .map(mat -> alunoRepository.findByMatricula(mat))
+                        .filter(a -> a != null)
+                        .toList();
+                responsavel.setAlunos(filhos);
+            }
+            responsavelRepository.save(responsavel);
         }
 
         return usuarioSalvo;

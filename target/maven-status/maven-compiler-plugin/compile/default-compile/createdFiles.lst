@@ -6,8 +6,11 @@ com\escola\TrabalhoRepository.class
 com\escola\FrequenciaRepository.class
 com\escola\FrequenciaService.class
 com\escola\ProfessorRepository.class
+com\escola\dto\UsuarioRegistroDTO.class
 com\escola\UsuarioController.class
+com\escola\ResponsavelRepository.class
 com\escola\NotaService.class
+com\escola\ResponsavelController.class
 com\escola\NotaTrabalhoRepository.class
 com\escola\Usuario.class
 com\escola\SecurityConfig.class
@@ -15,6 +18,7 @@ com\escola\DisciplinaController.class
 com\escola\AlunoController.class
 com\escola\AlunoRepository.class
 com\escola\DisciplinaRepository.class
+com\escola\Responsavel.class
 com\escola\TrabalhoController.class
 com\escola\Frequencia.class
 com\escola\Professor.class

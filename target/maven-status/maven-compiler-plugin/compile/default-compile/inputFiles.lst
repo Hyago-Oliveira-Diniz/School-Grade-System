@@ -1,10 +1,13 @@
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Usuario.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\dto\UsuarioRegistroDTO.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\TurmaController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\FrequenciaRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\JwtService.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Responsavel.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaService.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\SecurityConfig.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\ResponsavelController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\Trabalho.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\UsuarioRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\JwtFilter.java
@@ -31,5 +34,6 @@ C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\co
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\FrequenciaController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaController.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\NotaTrabalhoRepository.java
+C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\ResponsavelRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\TurmaRepository.java
 C:\Users\Hyago\Desktop\POO Java\SistemaJava\School-Grade-System\src\main\java\com\escola\EscolaApplication.java

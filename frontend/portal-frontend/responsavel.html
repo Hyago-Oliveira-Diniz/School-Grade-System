@@ -3,97 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Responsável — Portal Escolar</title>
+    <title>Painel do Responsável — Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
-    <style>
-        .form-busca {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .form-busca input {
-            flex: 1;
-            min-width: 180px;
-            padding: 10px 14px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        .form-busca input:focus { border-color: #1e3a5f; outline: none; }
-
-        /* aluno info card */
-        .aluno-info-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background: #f0f4f8;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .aluno-avatar {
-            width: 54px; height: 54px;
-            background: #1e3a5f;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 22px; flex-shrink: 0;
-        }
-        .aluno-nome   { font-size: 18px; font-weight: 700; color: #1e3a5f; }
-        .aluno-sub    { font-size: 13px; color: #888; margin-top: 2px; }
-
-        /* frequência */
-        .freq-resumo {
-            display: flex; align-items: center; gap: 20px;
-            background: #f8fafc; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px;
-        }
-        .freq-pct { font-size: 32px; font-weight: 700; min-width: 72px; text-align: center; }
-        .freq-pct.ok   { color: #16a34a; }
-        .freq-pct.warn { color: #dc2626; }
-        .freq-bar-wrap { flex: 1; background: #e5e7eb; border-radius: 20px; height: 10px; }
-        .freq-bar { height: 10px; border-radius: 20px; transition: width .4s; }
-        .freq-bar.ok   { background: #16a34a; }
-        .freq-bar.warn { background: #dc2626; }
-        .freq-info { font-size: 13px; color: #666; }
-        .freq-info strong { color: #333; }
-
-        /* falta item */
-        .falta-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 14px; background: #fef2f2;
-            border-radius: 8px; margin-bottom: 8px; font-size: 14px;
-        }
-
-        /* trabalho card */
-        .trabalho-card {
-            background: #f8fafc; border-radius: 10px; padding: 16px 18px;
-            margin-bottom: 10px; display: flex; align-items: center;
-            justify-content: space-between; gap: 16px;
-        }
-        .trabalho-card-info strong { font-size: 15px; color: #1e3a5f; }
-        .trabalho-card-info span   { font-size: 13px; color: #888; display: block; margin-top: 3px; }
-        .nota-mini-bar-wrap { background: #e5e7eb; border-radius: 20px; height: 6px; width: 100px; margin: 4px auto 0; }
-        .nota-mini-bar { height: 6px; border-radius: 20px; }
-        .nota-mini-bar.ok  { background: #16a34a; }
-        .nota-mini-bar.mid { background: #f59e0b; }
-        .nota-mini-bar.low { background: #ef4444; }
-
-        .disc-bloco { background: #f8fafc; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-        .disc-bloco h4 { font-size: 14px; color: #1e3a5f; margin-bottom: 10px; }
-
-        #painelAluno { display: none; }
-
-        /* tabs */
-        .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn {
-            padding: 9px 18px; border-radius: 8px; border: 1.5px solid #e0e0e0;
-            background: white; cursor: pointer; font-size: 14px; font-weight: 600;
-            color: #555; transition: all .15s;
-        }
-        .tab-btn.active { background: #1e3a5f; color: white; border-color: #1e3a5f; }
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
-    </style>
 </head>
 <body>
 <div class="layout">
@@ -106,7 +17,7 @@
         <nav>
             <ul>
                 <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
-                <li data-secao="turmas"    onclick="mostrarSecao('turmas')">🏫 Turmas</li>
+                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas da Escola</li>
                 <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
             </ul>
         </nav>
@@ -121,356 +32,51 @@
 
     <main class="content">
 
-        <!-- ══════════════ DASHBOARD ══════════════ -->
         <section id="dashboard" class="active">
             <div class="page-header">
                 <h1>Olá, Responsável 👨‍👧</h1>
-                <p>Consulte o desempenho acadêmico do aluno</p>
+                <p>Consulte o desempenho acadêmico automático dos seus filhos vinculados.</p>
             </div>
 
-            <!-- Busca do aluno -->
-            <div class="section-card">
-                <h2>🔍 Consultar Aluno</h2>
-                <div class="form-busca">
-                    <input id="alunoIdConsulta" type="number" placeholder="ID do Aluno">
-                    <button class="btn btn-primary" onclick="consultarAluno()">Consultar</button>
+            <div id="listaFilhosDashboard">
+                <div class="section-card">
+                    <p>Buscando dados dos alunos...</p>
                 </div>
-                <p id="buscaErro" style="color:#dc2626;font-size:13px;margin-top:10px;display:none"></p>
-            </div>
-
-            <!-- Painel do aluno (aparece após busca) -->
-            <div id="painelAluno">
-
-                <!-- Info do aluno -->
-                <div class="aluno-info-card">
-                    <div class="aluno-avatar">🎓</div>
-                    <div>
-                        <div class="aluno-nome" id="alunoNome">—</div>
-                        <div class="aluno-sub">Matrícula: <span id="alunoMatricula">—</span></div>
-                    </div>
-                </div>
-
-                <!-- Tabs -->
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="trocarTab('notas')">📝 Notas</button>
-                    <button class="tab-btn"         onclick="trocarTab('trabalhos')">📋 Trabalhos</button>
-                    <button class="tab-btn"         onclick="trocarTab('frequencia')">📅 Frequência</button>
-                </div>
-
-                <!-- Tab: Notas -->
-                <div class="tab-panel active" id="tab-notas">
-                    <div id="painelNotas">
-                        <div class="empty-state"><span>📝</span><p>Carregando...</p></div>
-                    </div>
-                </div>
-
-                <!-- Tab: Trabalhos -->
-                <div class="tab-panel" id="tab-trabalhos">
-                    <div id="painelTrabalhos">
-                        <div class="empty-state"><span>📋</span><p>Carregando...</p></div>
-                    </div>
-                </div>
-
-                <!-- Tab: Frequência -->
-                <div class="tab-panel" id="tab-frequencia">
-                    <div id="painelFrequencia">
-                        <div class="empty-state"><span>📅</span><p>Carregando...</p></div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- ══════════════ TURMAS ══════════════ -->
         <section id="turmas">
-            <div class="page-header"><h1>🏫 Turmas</h1></div>
+            <div class="page-header"><h1>🏫 Turmas da Escola</h1></div>
             <div class="section-card">
-                <h2>Turmas Disponíveis</h2>
+                <h2>Lista de Turmas</h2>
                 <ul class="lista" id="listaTurmas"></ul>
             </div>
         </section>
 
-        <!-- ══════════════ DISCIPLINAS ══════════════ -->
         <section id="disciplinas">
             <div class="page-header"><h1>📚 Disciplinas</h1></div>
             <div class="section-card">
-                <h2>Disciplinas</h2>
+                <h2>Grade Curricular Escolar</h2>
                 <ul class="lista" id="listaDisciplinas"></ul>
             </div>
         </section>
 
     </main>
 </div>
+
 <script src="script.js"></script>
 <script>
-const API = "http://localhost:8080/api";
-
-mostrarUsuario();
-
-// Carrega turmas e disciplinas no menu lateral
-fetch(API + "/turmas", { headers: authHeaders() })
-    .then(r => r.json()).then(turmas => {
-        const lista = document.getElementById("listaTurmas");
-        lista.innerHTML = turmas.length
-            ? turmas.map(t => `<li>🏫 <strong>${t.nome}</strong> — ${t.ano} <span class="badge badge-blue">${t.periodo}</span></li>`).join("")
-            : '<li>Nenhuma turma cadastrada</li>';
-    }).catch(() => {});
-
-fetch(API + "/disciplinas", { headers: authHeaders() })
-    .then(r => r.json()).then(discs => {
-        const lista = document.getElementById("listaDisciplinas");
-        lista.innerHTML = discs.length
-            ? discs.map(d => `<li>📚 <strong>${d.nome}</strong> <span class="badge badge-blue">${d.codigo || ""}</span></li>`).join("")
-            : '<li>Nenhuma disciplina cadastrada</li>';
-    }).catch(() => {});
-
-// ──────────────────────────────────────────────
-// TABS
-// ──────────────────────────────────────────────
-function trocarTab(nome) {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-    document.getElementById("tab-" + nome).classList.add("active");
-    event.currentTarget.classList.add("active");
-}
-
-// ──────────────────────────────────────────────
-// CONSULTAR ALUNO
-// ──────────────────────────────────────────────
-async function consultarAluno() {
-    const alunoId = document.getElementById("alunoIdConsulta").value.trim();
-    const erroEl  = document.getElementById("buscaErro");
-
-    if (!alunoId) {
-        erroEl.innerText = "Informe o ID do aluno.";
-        erroEl.style.display = "block";
-        return;
+    // ==========================================
+    // 1. GUARDA DE ROTA E INICIALIZAÇÃO
+    // ==========================================
+    var userLogado = getUsuario();
+    // Segurança: Bloqueia quem não for RESPONSAVEL
+    if (!userLogado || userLogado.tipo !== "RESPONSAVEL") {
+        window.location.href = "index.html";
+    } else {
+        mostrarUsuario();
+        carregarDadosFilhos(); // Chama a nova função mágica!
     }
-
-    erroEl.style.display = "none";
-
-    // Busca todos os dados em paralelo
-    const [alunosRes, notasRes, trabRes, freqRes] = await Promise.all([
-        fetch(`${API}/alunos`,                     { headers: authHeaders() }),
-        fetch(`${API}/notas/aluno/${alunoId}`,      { headers: authHeaders() }),
-        fetch(`${API}/trabalhos/aluno/${alunoId}`,  { headers: authHeaders() }),
-        fetch(`${API}/frequencias/aluno/${alunoId}`,{ headers: authHeaders() })
-    ]);
-
-    const alunos    = await alunosRes.json().catch(() => []);
-    const notas     = await notasRes.json().catch(() => []);
-    const trabalhos = await trabRes.json().catch(() => []);
-    const freqs     = await freqRes.json().catch(() => []);
-
-    const aluno = alunos.find(a => String(a.id) === String(alunoId));
-    if (!aluno) {
-        erroEl.innerText = "Aluno não encontrado. Verifique o ID.";
-        erroEl.style.display = "block";
-        document.getElementById("painelAluno").style.display = "none";
-        return;
-    }
-
-    // Exibe painel
-    document.getElementById("alunoNome").innerText      = aluno.nome;
-    document.getElementById("alunoMatricula").innerText = aluno.matricula || "—";
-    document.getElementById("painelAluno").style.display = "block";
-
-    renderNotas(notas);
-    renderTrabalhos(trabalhos);
-    renderFrequencia(freqs);
-}
-
-// ──────────────────────────────────────────────
-// NOTAS
-// ──────────────────────────────────────────────
-function renderNotas(notas) {
-    const container = document.getElementById("painelNotas");
-    if (!notas.length) {
-        container.innerHTML = '<div class="empty-state"><span>📝</span><p>Nenhuma nota lançada ainda</p></div>';
-        return;
-    }
-
-    const mapa = {};
-    notas.forEach(n => {
-        const disc = n.disciplina?.nome || "Disciplina";
-        if (!mapa[disc]) mapa[disc] = { bimestres: {}, notaFinal: n.notaFinal };
-        mapa[disc].bimestres[n.bimestre] = n.valor;
-        if (n.notaFinal) mapa[disc].notaFinal = n.notaFinal;
-    });
-
-    container.innerHTML = Object.entries(mapa).map(([disc, dados]) => {
-        const bimestresHtml = [1,2,3,4].map(b => {
-            const v = dados.bimestres[b];
-            if (v === undefined) return `<div class="nota-display" style="opacity:.35">
-                <div class="nota-circle neutro" style="font-size:13px">—</div>
-                <div class="nota-info"><strong style="color:#aaa">${b}º Bimestre</strong><span>Não lançado</span></div>
-            </div>`;
-            const cls = v >= 7 ? "aprovado" : v >= 5 ? "neutro" : "reprovado";
-            return `<div class="nota-display">
-                <div class="nota-circle ${cls}">${v.toFixed(1)}</div>
-                <div class="nota-info"><strong>${b}º Bimestre</strong><span>Nota: ${v.toFixed(1)}</span></div>
-            </div>`;
-        }).join("");
-
-        const media    = dados.notaFinal;
-        const mediaCls = media >= 7 ? "aprovado" : media >= 5 ? "neutro" : "reprovado";
-        const mediaBadge = media !== null && media !== undefined
-            ? `<div class="nota-display" style="margin-top:8px;border-top:1px solid #e5e7eb;padding-top:12px">
-                <div class="nota-circle ${mediaCls}" style="width:64px;height:64px;font-size:20px">${media.toFixed(1)}</div>
-                <div class="nota-info"><strong>Média Final</strong>
-                    <span class="badge ${mediaCls === 'aprovado' ? 'badge-green' : mediaCls === 'reprovado' ? 'badge-red' : 'badge-blue'}"
-                        style="margin-top:4px">${media >= 5 ? 'Aprovado' : 'Reprovado'}</span>
-                </div>
-               </div>` : "";
-
-        return `<div class="disc-bloco section-card" style="margin-bottom:12px">
-            <h4 style="font-size:15px;font-weight:700;color:#1e3a5f;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #eee">
-                📚 ${disc}
-            </h4>
-            ${bimestresHtml}
-            ${mediaBadge}
-        </div>`;
-    }).join("");
-}
-
-// ──────────────────────────────────────────────
-// TRABALHOS
-// ──────────────────────────────────────────────
-function renderTrabalhos(trabalhos) {
-    const container = document.getElementById("painelTrabalhos");
-    if (!trabalhos.length) {
-        container.innerHTML = '<div class="empty-state"><span>📋</span><p>Nenhum trabalho avaliado ainda</p></div>';
-        return;
-    }
-
-    container.innerHTML = `<div class="section-card">` + trabalhos.map(t => {
-        const data  = new Date(t.dataEntrega + "T12:00:00").toLocaleDateString("pt-BR");
-        const nota  = t.notaAluno;
-        const min   = t.notaMinima;
-        const max   = t.notaMaxima;
-        const range = max - min;
-        const pct   = range > 0 ? Math.max(0, Math.min(100, ((nota - min) / range) * 100)) : 0;
-        const cls   = nota >= (max * 0.7) ? "ok" : nota >= (max * 0.5) ? "mid" : "low";
-        const notaCls = nota >= (max * 0.7) ? "aprovado" : nota >= (max * 0.5) ? "neutro" : "reprovado";
-
-        return `
-        <div class="trabalho-card">
-            <div class="trabalho-card-info">
-                <strong>${t.titulo}</strong>
-                <span>📚 ${t.disciplina} &nbsp;|&nbsp; 📅 Entrega: ${data}</span>
-                ${t.descricao ? `<span style="color:#bbb;font-size:12px">${t.descricao}</span>` : ""}
-            </div>
-            <div style="text-align:center;flex-shrink:0">
-                <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:.5px">nota</div>
-                <div class="nota-circle ${notaCls}" style="margin:6px auto;width:54px;height:54px;font-size:18px">
-                    ${nota.toFixed(1)}
-                </div>
-                <div style="font-size:11px;color:#aaa;text-align:center">Mín ${min} | Máx ${max}</div>
-                <div class="nota-mini-bar-wrap">
-                    <div class="nota-mini-bar ${cls}" style="width:${pct}%"></div>
-                </div>
-            </div>
-        </div>`;
-    }).join("") + `</div>`;
-}
-
-// ──────────────────────────────────────────────
-// FREQUÊNCIA — por disciplina com % e datas de falta
-// ──────────────────────────────────────────────
-function renderFrequencia(freqs) {
-    const container = document.getElementById("painelFrequencia");
-    if (!freqs.length) {
-        container.innerHTML = '<div class="empty-state"><span>📅</span><p>Nenhum registro de frequência ainda</p></div>';
-        return;
-    }
-
-    // Agrupa por disciplina
-    const mapa = {};
-    freqs.forEach(f => {
-        const disc = f.disciplina?.nome || "Disciplina";
-        if (!mapa[disc]) mapa[disc] = { total: 0, presencas: 0, faltas: [] };
-        mapa[disc].total++;
-        if (f.presente) {
-            mapa[disc].presencas++;
-        } else {
-            mapa[disc].faltas.push({ data: f.data, obs: f.observacao });
-        }
-    });
-
-    // Resumo geral
-    const totalGeral     = freqs.length;
-    const presGeral      = freqs.filter(f => f.presente).length;
-    const pctGeral       = Math.round(presGeral * 100 / totalGeral);
-    const clsGeral       = pctGeral >= 75 ? "ok" : "warn";
-
-    const resumoGeral = `
-    <div class="section-card" style="margin-bottom:16px">
-        <h2>📊 Frequência Geral</h2>
-        <div class="freq-resumo">
-            <div class="freq-pct ${clsGeral}">${pctGeral}%</div>
-            <div style="flex:1">
-                <div class="freq-bar-wrap">
-                    <div class="freq-bar ${clsGeral}" style="width:${pctGeral}%"></div>
-                </div>
-                <div class="freq-info" style="margin-top:8px">
-                    <strong>${presGeral}</strong> presenças &nbsp;|&nbsp;
-                    <strong>${totalGeral - presGeral}</strong> faltas &nbsp;|&nbsp;
-                    <strong>${totalGeral}</strong> aulas registradas
-                </div>
-            </div>
-            <div>
-                <span class="badge ${pctGeral >= 75 ? 'badge-green' : 'badge-red'}">
-                    ${pctGeral >= 75 ? '✅ Frequência regular' : '⚠️ Frequência baixa'}
-                </span>
-            </div>
-        </div>
-    </div>`;
-
-    const porDisc = Object.entries(mapa).map(([disc, dados]) => {
-        const pct    = Math.round(dados.presencas * 100 / dados.total);
-        const cls    = pct >= 75 ? "ok" : "warn";
-        const status = pct >= 75
-            ? `<span class="badge badge-green">✅ Regular</span>`
-            : `<span class="badge badge-red">⚠️ Baixa</span>`;
-
-        const faltasHtml = dados.faltas.length
-            ? `<div style="margin-top:12px">
-                <p style="font-size:13px;font-weight:600;color:#666;margin-bottom:8px">
-                    Datas de falta (${dados.faltas.length}):
-                </p>
-                ${dados.faltas.map(f => {
-                    const data = new Date(f.data + "T12:00:00").toLocaleDateString("pt-BR");
-                    return `<div class="falta-item">
-                        ❌ <span style="font-weight:600">${data}</span>
-                        ${f.obs ? `<span class="badge badge-yellow">${f.obs}</span>` : ""}
-                    </div>`;
-                }).join("")}
-               </div>`
-            : '<p style="font-size:13px;color:#aaa;margin-top:8px">Nenhuma falta registrada 🎉</p>';
-
-        return `
-        <div class="section-card" style="margin-bottom:12px">
-            <h2 style="font-size:15px">📚 ${disc}</h2>
-            <div class="freq-resumo">
-                <div class="freq-pct ${cls}">${pct}%</div>
-                <div style="flex:1">
-                    <div class="freq-bar-wrap">
-                        <div class="freq-bar ${cls}" style="width:${pct}%"></div>
-                    </div>
-                    <div class="freq-info" style="margin-top:8px">
-                        <strong>${dados.presencas}</strong> presenças &nbsp;|&nbsp;
-                        <strong>${dados.faltas.length}</strong> faltas &nbsp;|&nbsp;
-                        <strong>${dados.total}</strong> aulas
-                    </div>
-                </div>
-                <div>${status}</div>
-            </div>
-            ${faltasHtml}
-        </div>`;
-    }).join("");
-
-    container.innerHTML = resumoGeral + porDisc;
-}
 </script>
 </body>
 </html>
