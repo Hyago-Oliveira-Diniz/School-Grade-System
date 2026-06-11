@@ -14,15 +14,17 @@ public class Trabalho {
 
     private String descricao;
 
+    private LocalDate prazo;
+
+    private Integer bimestre;
+
     @ManyToOne
-    @JoinColumn(name = "disciplina_id", nullable = false)
+    @JoinColumn(name = "disciplina_id")
     private Disciplina disciplina;
 
-    private LocalDate dataEntrega;
-
-    // Nota mínima e máxima definidas pelo professor ao criar o trabalho
-    private Double notaMinima;
-    private Double notaMaxima;
+    @ManyToOne
+    @JoinColumn(name = "turma_id")
+    private Turma turma;
 
     // GETTERS E SETTERS
 
@@ -34,15 +36,15 @@ public class Trabalho {
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
 
+    public LocalDate getPrazo() { return prazo; }
+    public void setPrazo(LocalDate prazo) { this.prazo = prazo; }
+
+    public Integer getBimestre() { return bimestre; }
+    public void setBimestre(Integer bimestre) { this.bimestre = bimestre; }
+
     public Disciplina getDisciplina() { return disciplina; }
     public void setDisciplina(Disciplina disciplina) { this.disciplina = disciplina; }
 
-    public LocalDate getDataEntrega() { return dataEntrega; }
-    public void setDataEntrega(LocalDate dataEntrega) { this.dataEntrega = dataEntrega; }
-
-    public Double getNotaMinima() { return notaMinima; }
-    public void setNotaMinima(Double notaMinima) { this.notaMinima = notaMinima; }
-
-    public Double getNotaMaxima() { return notaMaxima; }
-    public void setNotaMaxima(Double notaMaxima) { this.notaMaxima = notaMaxima; }
+    public Turma getTurma() { return turma; }
+    public void setTurma(Turma turma) { this.turma = turma; }
 }

@@ -20,7 +20,6 @@
                 <li data-secao="usuarios" onclick="mostrarSecao('usuarios')">👥 Usuários</li>
                 <li data-secao="alunos" onclick="mostrarSecao('alunos')">🎓 Alunos</li>
                 <li data-secao="professores" onclick="mostrarSecao('professores')">👨‍🏫 Professores</li>
-                <li data-secao="responsaveis" onclick="mostrarSecao('responsaveis')">👨‍👧 Responsáveis</li>
                 <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas</li>
                 <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
             </ul>
@@ -36,6 +35,7 @@
 
     <main class="content">
 
+        <!-- DASHBOARD -->
         <section id="dashboard" class="active">
             <div class="page-header">
                 <h1>Painel Administrativo ⚙️</h1>
@@ -46,11 +46,6 @@
                     <div class="stat-icon">🎓</div>
                     <div class="stat-value" id="totalAlunos">—</div>
                     <div class="stat-label">Alunos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">👨‍👧</div>
-                    <div class="stat-value" id="totalResponsaveis">—</div>
-                    <div class="stat-label">Responsáveis</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">👨‍🏫</div>
@@ -70,6 +65,7 @@
             </div>
         </section>
 
+        <!-- USUÁRIOS -->
         <section id="usuarios">
             <div class="page-header">
                 <h1>👥 Usuários</h1>
@@ -79,13 +75,14 @@
                 <h2>Lista de Usuários</h2>
                 <table>
                     <thead>
-                    <tr><th>Nome</th><th>Usuário</th><th>Perfil</th></tr>
+                        <tr><th>Nome</th><th>Usuário</th><th>Perfil</th></tr>
                     </thead>
                     <tbody id="listaUsuarios"></tbody>
                 </table>
             </div>
         </section>
 
+        <!-- ALUNOS -->
         <section id="alunos">
             <div class="page-header"><h1>🎓 Alunos</h1></div>
             <div class="section-card">
@@ -94,6 +91,7 @@
             </div>
         </section>
 
+        <!-- PROFESSORES -->
         <section id="professores">
             <div class="page-header"><h1>👨‍🏫 Professores</h1></div>
             <div class="section-card">
@@ -102,29 +100,15 @@
             </div>
         </section>
 
-        <section id="responsaveis">
-            <div class="page-header">
-                <h1>👨‍👧 Responsáveis</h1>
-                <p>Gerencie os responsáveis cadastrados e veja os vínculos familiares</p>
-            </div>
-            <div class="section-card">
-                <h2>Responsáveis Cadastrados</h2>
-                <ul class="lista" id="listaResponsaveis"></ul>
-            </div>
-        </section>
-
+        <!-- TURMAS -->
         <section id="turmas">
             <div class="page-header"><h1>🏫 Turmas</h1></div>
             <div class="section-card">
                 <h2>Criar Nova Turma</h2>
                 <div class="form-row">
-                    <input id="turmaNome" type="text" placeholder="Nome (ex: 3º Ano A)">
-                    <select id="turmaPeriodo">
-                        <option value="">Selecione o Período...</option>
-                        <option value="Manhã">Manhã</option>
-                        <option value="Tarde">Tarde</option>
-                        <option value="Noite">Noite</option>
-                    </select>
+                    <input id="turmaNome"    type="text" placeholder="Nome (ex: 3º Ano A)">
+                    <input id="turmaAno"     type="text" placeholder="Ano (ex: 2025)">
+                    <input id="turmaPeriodo" type="text" placeholder="Período (Manhã/Tarde/Noite)">
                     <button class="btn btn-primary" onclick="criarTurma()">Criar</button>
                 </div>
                 <p id="turmaMensagem" style="margin:8px 0;font-size:14px;"></p>
@@ -133,12 +117,14 @@
             </div>
         </section>
 
+        <!-- DISCIPLINAS -->
         <section id="disciplinas">
             <div class="page-header"><h1>📚 Disciplinas</h1></div>
             <div class="section-card">
                 <h2>Criar Nova Disciplina</h2>
                 <div class="form-row">
-                    <input id="discNome" type="text" placeholder="Nome da matéria (ex: Sociologia)">
+                    <input id="discNome"   type="text" placeholder="Nome (ex: Matemática)">
+                    <input id="discCodigo" type="text" placeholder="Código (ex: MAT101)">
                     <button class="btn btn-primary" onclick="criarDisciplina()">Criar</button>
                 </div>
                 <p id="discMensagem" style="margin:8px 0;font-size:14px;"></p>
@@ -152,46 +138,44 @@
 
 <script src="script.js"></script>
 <script>
-    // ==========================================
-    // 1. GUARDA DE ROTA E INICIALIZAÇÃO
-    // ==========================================
-    var userLogado = getUsuario();
-    if (!userLogado || userLogado.tipo !== "ADMIN") {
-        window.location.href = "index.html";
-    } else {
-        mostrarUsuario();
+    mostrarUsuario();
+
+    function criarTurma() {
+        const nome    = document.getElementById("turmaNome").value.trim();
+        const ano     = document.getElementById("turmaAno").value.trim();
+        const periodo = document.getElementById("turmaPeriodo").value.trim();
+        if (!nome || !ano || !periodo) { alert("Preencha todos os campos!"); return; }
+        fetch("http://localhost:8080/api/turmas", {
+            method: "POST", headers: authHeaders(),
+            body: JSON.stringify({ nome, ano, periodo })
+        })
+        .then(r => r.json())
+        .then(() => {
+            document.getElementById("turmaMensagem").innerText = "✅ Turma criada!";
+            carregarTurmas();
+        }).catch(() => { document.getElementById("turmaMensagem").innerText = "❌ Erro ao criar turma."; });
     }
 
-    // ==========================================
-    // 2. CARREGAR DADOS DO DASHBOARD
-    // ==========================================
-    fetch("http://localhost:8080/api/alunos", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalAlunos").innerText = d.length; })
-        .catch(() => { document.getElementById("totalAlunos").innerText = "0"; });
-
-    fetch("http://localhost:8080/api/professores", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalProfessores").innerText = d.length; })
-        .catch(() => { document.getElementById("totalProfessores").innerText = "0"; });
-
-    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalTurmas").innerText = d.length; })
-        .catch(() => { document.getElementById("totalTurmas").innerText = "0"; });
-
-    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalDisciplinas").innerText = d.length; })
-        .catch(() => { document.getElementById("totalDisciplinas").innerText = "0"; });
-
-    fetch("http://localhost:8080/api/usuarios", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(usuarios => {
-            var contagem = usuarios.filter(u => u.tipo === "RESPONSAVEL").length;
-            document.getElementById("totalResponsaveis").innerText = contagem;
+    function criarDisciplina() {
+        const nome   = document.getElementById("discNome").value.trim();
+        const codigo = document.getElementById("discCodigo").value.trim();
+        if (!nome) { alert("Informe o nome da disciplina!"); return; }
+        fetch("http://localhost:8080/api/disciplinas", {
+            method: "POST", headers: authHeaders(),
+            body: JSON.stringify({ nome, codigo })
         })
-        .catch(() => { document.getElementById("totalResponsaveis").innerText = "0"; });
+        .then(r => r.json())
+        .then(() => {
+            document.getElementById("discMensagem").innerText = "✅ Disciplina criada!";
+            carregarDisciplinas();
+        }).catch(() => { document.getElementById("discMensagem").innerText = "❌ Erro ao criar disciplina."; });
+    }
+
+    // Dashboard stats
+    fetch("http://localhost:8080/api/alunos",      { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalAlunos").innerText = d.length; }).catch(()=>{});
+    fetch("http://localhost:8080/api/professores", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalProfessores").innerText = d.length; }).catch(()=>{});
+    fetch("http://localhost:8080/api/turmas",      { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalTurmas").innerText = d.length; }).catch(()=>{});
+    fetch("http://localhost:8080/api/disciplinas", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalDisciplinas").innerText = d.length; }).catch(()=>{});
 </script>
 </body>
 </html>

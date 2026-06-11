@@ -3,79 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Responsável — Portal Escolar</title>
+    <title>Painel Responsável — Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
 </head>
 <body>
 <div class="layout">
-
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>🎓 Portal Escolar</h2>
-            <p>Painel do Responsável</p>
-        </div>
-        <nav>
-            <ul>
-                <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
-                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas da Escola</li>
-                <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
-            </ul>
-        </nav>
+        <div class="sidebar-header"><h2>🎓 Portal Escolar</h2><p>Painel do Responsável</p></div>
+        <nav><ul>
+            <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
+            <li data-secao="boletim" onclick="mostrarSecao('boletim')">📊 Boletim do Filho</li>
+            <li data-secao="trabalhos" onclick="mostrarSecao('trabalhos')">📋 Trabalhos</li>
+            <li data-secao="frequencias" onclick="mostrarSecao('frequencias')">📅 Frequência</li>
+            <li data-secao="advertencias" onclick="mostrarSecao('advertencias')">⚠️ Advertências</li>
+        </ul></nav>
         <div class="sidebar-footer">
-            <div class="user-info">
-                <strong id="usuarioLogado">—</strong>
-                <span id="tipoUsuario">Responsável</span>
-            </div>
+            <div class="user-info"><strong id="usuarioLogado">—</strong><span id="tipoUsuario">Responsável</span></div>
             <button class="btn-logout" onclick="logout()">Sair</button>
         </div>
     </aside>
 
     <main class="content">
 
+        <!-- DASHBOARD -->
         <section id="dashboard" class="active">
-            <div class="page-header">
-                <h1>Olá, Responsável 👨‍👧</h1>
-                <p>Consulte o desempenho acadêmico automático dos seus filhos vinculados.</p>
-            </div>
+            <div class="page-header"><h1>Olá, Responsável 👨‍👧</h1><p>Acompanhe a trajetória escolar do seu filho</p></div>
 
-            <div id="listaFilhosDashboard">
-                <div class="section-card">
-                    <p>Buscando dados dos alunos...</p>
+            <div class="section-card" style="margin-bottom:20px">
+                <h2>🔍 Selecionar Aluno</h2>
+                <p style="font-size:13px;color:#888;margin-bottom:12px">Informe o ID do aluno para acompanhar o desempenho</p>
+                <div class="form-row">
+                    <input id="alunoIdInput" type="number" placeholder="ID do Aluno">
+                    <button class="btn btn-primary" onclick="selecionarAluno()">Acompanhar</button>
                 </div>
+                <div id="alunoSelecionado" style="margin-top:12px;"></div>
+            </div>
+
+            <div class="cards-grid" id="dashCards" style="display:none">
+                <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-value" id="totalTrabalhos">—</div><div class="stat-label">Trabalhos</div></div>
+                <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-value" id="totalAdvertencias">—</div><div class="stat-label">Advertências</div></div>
+                <div class="stat-card"><div class="stat-icon">📅</div><div class="stat-value" id="totalFaltas">—</div><div class="stat-label">Faltas</div></div>
             </div>
         </section>
 
-        <section id="turmas">
-            <div class="page-header"><h1>🏫 Turmas da Escola</h1></div>
+        <!-- BOLETIM -->
+        <section id="boletim">
+            <div class="page-header"><h1>📊 Boletim Escolar</h1><p>Notas por disciplina, tipo e bimestre</p></div>
             <div class="section-card">
-                <h2>Lista de Turmas</h2>
-                <ul class="lista" id="listaTurmas"></ul>
+                <h2>Boletim</h2>
+                <div id="boletimContainer"><p style="color:#888;text-align:center;padding:20px">Selecione um aluno no Dashboard para ver o boletim.</p></div>
             </div>
         </section>
 
-        <section id="disciplinas">
-            <div class="page-header"><h1>📚 Disciplinas</h1></div>
+        <!-- TRABALHOS -->
+        <section id="trabalhos">
+            <div class="page-header"><h1>📋 Trabalhos</h1><p>Trabalhos e prazos</p></div>
+            <div class="section-card"><h2>Trabalhos da Turma</h2><ul class="lista" id="listaTrabalhos"></ul></div>
+        </section>
+
+        <!-- FREQUÊNCIA -->
+        <section id="frequencias">
+            <div class="page-header"><h1>📅 Frequência</h1></div>
             <div class="section-card">
-                <h2>Grade Curricular Escolar</h2>
-                <ul class="lista" id="listaDisciplinas"></ul>
+                <h2>Resumo de Presença por Disciplina</h2>
+                <div class="form-row">
+                    <input id="freqDiscId" type="number" placeholder="ID da Disciplina">
+                    <button class="btn btn-primary" onclick="verResumoResp()">Ver Resumo</button>
+                </div>
+                <div id="resumoFreqResp" style="margin-top:12px"></div>
+                <h2 style="margin-top:20px">Histórico de Frequência</h2>
+                <ul class="lista" id="listaFrequencias"></ul>
             </div>
+        </section>
+
+        <!-- ADVERTÊNCIAS -->
+        <section id="advertencias">
+            <div class="page-header"><h1>⚠️ Advertências</h1><p>Ocorrências disciplinares do aluno</p></div>
+            <div class="section-card"><h2>Advertências Registradas</h2><ul class="lista" id="listaAdvertencias"></ul></div>
         </section>
 
     </main>
 </div>
-
 <script src="script.js"></script>
 <script>
-    // ==========================================
-    // 1. GUARDA DE ROTA E INICIALIZAÇÃO
-    // ==========================================
-    var userLogado = getUsuario();
-    // Segurança: Bloqueia quem não for RESPONSAVEL
-    if (!userLogado || userLogado.tipo !== "RESPONSAVEL") {
-        window.location.href = "index.html";
-    } else {
-        mostrarUsuario();
-        carregarDadosFilhos(); // Chama a nova função mágica!
+    mostrarUsuario();
+    let alunoAtualId = null;
+
+    function selecionarAluno() {
+        const id = document.getElementById("alunoIdInput").value;
+        if (!id) { alert("Informe o ID do aluno!"); return; }
+        alunoAtualId = id;
+
+        // Busca info do aluno
+        fetch(API + "/alunos", { headers: authHeaders() }).then(r => r.json()).then(alunos => {
+            const aluno = alunos.find(a => a.id == id);
+            if (aluno) {
+                document.getElementById("alunoSelecionado").innerHTML = `
+                    <div style="background:#dbeafe;padding:12px;border-radius:8px;font-size:14px">
+                        👤 Acompanhando: <strong>${aluno.nome}</strong> | Matrícula: ${aluno.matricula || "—"}
+                    </div>`;
+                document.getElementById("dashCards").style.display = "grid";
+            }
+        });
+
+        // Carrega stats
+        fetch(API + "/advertencias/aluno/" + id, { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalAdvertencias").innerText = d.length; }).catch(()=>{});
+        fetch(API + "/frequencias/aluno/" + id, { headers: authHeaders() }).then(r=>r.json()).then(d=>{
+            const faltas = d.filter(f => !f.presente).length;
+            document.getElementById("totalFaltas").innerText = faltas;
+        }).catch(()=>{});
+        fetch(API + "/trabalhos", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalTrabalhos").innerText = d.length; }).catch(()=>{});
+
+        carregarBoletim(id);
+    }
+
+    // Override das funções para usar alunoAtualId
+    function carregarFrequencias() {
+        if (!alunoAtualId) { document.getElementById("listaFrequencias").innerHTML = "<li>Selecione um aluno no Dashboard.</li>"; return; }
+        fetch(API + "/frequencias/aluno/" + alunoAtualId, { headers: authHeaders() }).then(r => r.json()).then(freqs => {
+            const lista = document.getElementById("listaFrequencias");
+            lista.innerHTML = freqs.length ? freqs.map(f => `
+                <li>${f.presente ? "✅" : "❌"} <strong>${f.disciplina?.nome || "—"}</strong> — ${f.data}
+                ${f.observacao ? '<span class="badge badge-yellow">' + f.observacao + '</span>' : ""}</li>
+            `).join("") : '<li>Nenhum registro de frequência</li>';
+        }).catch(() => {});
+    }
+
+    function carregarAdvertencias() {
+        if (!alunoAtualId) { document.getElementById("listaAdvertencias").innerHTML = "<li>Selecione um aluno no Dashboard.</li>"; return; }
+        fetch(API + "/advertencias/aluno/" + alunoAtualId, { headers: authHeaders() }).then(r => r.json()).then(advs => {
+            const lista = document.getElementById("listaAdvertencias");
+            const cor = { LEVE: "badge-blue", MEDIA: "badge-yellow", GRAVE: "badge-red" };
+            lista.innerHTML = advs.length ? advs.map(a => `<li>⚠️ <strong>${a.descricao}</strong> — ${a.data} <span class="badge ${cor[a.gravidade]}">${a.gravidade}</span>${a.professor ? " | Prof. " + a.professor.nome : ""}</li>`).join("") : '<li>Nenhuma advertência registrada ✅</li>';
+        }).catch(() => {});
+    }
+
+    function carregarBoletim(id) {
+        if (!id && alunoAtualId) id = alunoAtualId;
+        if (!id) return;
+        fetch(API + "/avaliacoes/aluno/" + id, { headers: authHeaders() }).then(r => r.json()).then(avaliacoes => {
+            const container = document.getElementById("boletimContainer");
+            if (!avaliacoes.length) { container.innerHTML = '<p style="color:#888;text-align:center;padding:20px">Nenhuma avaliação lançada ainda.</p>'; return; }
+            const agrupado = {};
+            avaliacoes.forEach(av => {
+                const disc = av.disciplina?.nome || "—";
+                if (!agrupado[disc]) agrupado[disc] = { 1: [], 2: [], 3: [], 4: [] };
+                agrupado[disc][av.bimestre]?.push(av);
+            });
+            let html = '<table><thead><tr><th>Disciplina</th><th>1º Bim</th><th>2º Bim</th><th>3º Bim</th><th>4º Bim</th><th>Média Final</th><th>Situação</th></tr></thead><tbody>';
+            Object.entries(agrupado).forEach(([disc, bims]) => {
+                const medias = [1,2,3,4].map(b => { const ns = bims[b]; return ns.length ? ns.reduce((s,n)=>s+n.valor,0)/ns.length : null; });
+                const vals = medias.filter(m=>m!==null);
+                const mf = vals.length ? vals.reduce((s,m)=>s+m,0)/vals.length : null;
+                const ap = mf !== null && mf >= 6;
+                html += `<tr><td><strong>${disc}</strong></td>${medias.map(m=>`<td>${m!==null?m.toFixed(1):"—"}</td>`).join("")}<td><strong>${mf!==null?mf.toFixed(1):"—"}</strong></td><td><span class="badge ${mf===null?"badge-blue":ap?"badge-green":"badge-red"}">${mf===null?"Em andamento":ap?"APROVADO":"REPROVADO"}</span></td></tr>`;
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }).catch(() => {});
+    }
+
+    function verResumoResp() {
+        const discId = document.getElementById("freqDiscId").value;
+        if (!alunoAtualId || !discId) { alert("Selecione um aluno e informe a disciplina!"); return; }
+        fetch(API + "/frequencias/resumo/" + alunoAtualId + "/" + discId, { headers: authHeaders() })
+        .then(r => r.json())
+        .then(d => {
+            const cor = d.percentualPresenca >= 75 ? "#dcfce7" : "#fee2e2";
+            document.getElementById("resumoFreqResp").innerHTML = `<div style="background:${cor};padding:16px;border-radius:10px">Presença: <strong>${d.percentualPresenca}%</strong> | Presenças: ${d.presencas} | Faltas: ${d.faltas} | <span class="badge ${d.situacao==='APROVADO'?'badge-green':'badge-red'}">${d.situacao}</span></div>`;
+        }).catch(() => {});
     }
 </script>
 </body>

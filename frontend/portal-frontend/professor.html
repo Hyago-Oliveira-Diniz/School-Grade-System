@@ -3,151 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Professor — Portal Escolar</title>
+    <title>Painel Professor — Portal Escolar</title>
     <link rel="stylesheet" href="logado.css">
 </head>
 <body>
 <div class="layout">
-
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>🎓 Portal Escolar</h2>
-            <p>Painel do Professor</p>
-        </div>
-        <nav>
-            <ul>
-                <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
-                <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas</li>
-                <li data-secao="alunos" onclick="mostrarSecao('alunos')">🎓 Alunos</li>
-                <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
-                <li data-secao="lancarnotas" onclick="mostrarSecao('lancarnotas')">📝 Lançar Notas</li>
-                <li data-secao="frequencia" onclick="mostrarSecao('frequencia')">📅 Frequência</li>
-            </ul>
-        </nav>
+        <div class="sidebar-header"><h2>🎓 Portal Escolar</h2><p>Painel do Professor</p></div>
+        <nav><ul>
+            <li data-secao="dashboard" class="active" onclick="mostrarSecao('dashboard')">🏠 Dashboard</li>
+            <li data-secao="alunos" onclick="mostrarSecao('alunos')">🎓 Alunos</li>
+            <li data-secao="lancarAvaliacao" onclick="mostrarSecao('lancarAvaliacao')">📝 Lançar Avaliação</li>
+            <li data-secao="trabalhos" onclick="mostrarSecao('trabalhos')">📋 Trabalhos</li>
+            <li data-secao="frequencia" onclick="mostrarSecao('frequencia')">📅 Frequência</li>
+            <li data-secao="advertencias" onclick="mostrarSecao('advertencias')">⚠️ Advertências</li>
+            <li data-secao="turmas" onclick="mostrarSecao('turmas')">🏫 Turmas</li>
+            <li data-secao="disciplinas" onclick="mostrarSecao('disciplinas')">📚 Disciplinas</li>
+        </ul></nav>
         <div class="sidebar-footer">
-            <div class="user-info">
-                <strong id="usuarioLogado">—</strong>
-                <span id="tipoUsuario">Professor</span>
-            </div>
+            <div class="user-info"><strong id="usuarioLogado">—</strong><span id="tipoUsuario">Professor</span></div>
             <button class="btn-logout" onclick="logout()">Sair</button>
         </div>
     </aside>
 
     <main class="content">
 
+        <!-- DASHBOARD -->
         <section id="dashboard" class="active">
-            <div class="page-header">
-                <h1>Painel do Professor 👨‍🏫</h1>
-                <p>Bem-vindo ao seu portal de gestão acadêmica</p>
-            </div>
+            <div class="page-header"><h1>Painel do Professor 👨‍🏫</h1><p>Gerencie suas turmas e alunos</p></div>
             <div class="cards-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">🎓</div>
-                    <div class="stat-value" id="totalAlunos">—</div>
-                    <div class="stat-label">Alunos Matriculados</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏫</div>
-                    <div class="stat-value" id="totalTurmas">—</div>
-                    <div class="stat-label">Minhas Turmas</div>
-                </div>
+                <div class="stat-card"><div class="stat-icon">🎓</div><div class="stat-value" id="totalAlunos">—</div><div class="stat-label">Alunos</div></div>
+                <div class="stat-card"><div class="stat-icon">🏫</div><div class="stat-value" id="totalTurmas">—</div><div class="stat-label">Turmas</div></div>
+                <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value" id="totalDisciplinas">—</div><div class="stat-label">Disciplinas</div></div>
+                <div class="stat-card"><div class="stat-icon">📋</div><div class="stat-value" id="totalTrabalhos">—</div><div class="stat-label">Trabalhos</div></div>
             </div>
         </section>
 
-        <section id="turmas">
-            <div class="page-header"><h1>🏫 Turmas</h1></div>
-            <div class="section-card">
-                <h2>Turmas da Escola</h2>
-                <ul class="lista" id="listaTurmas"></ul>
-            </div>
-        </section>
-
+        <!-- ALUNOS -->
         <section id="alunos">
-            <div class="page-header"><h1>🎓 Alunos</h1></div>
-            <div class="section-card">
-                <h2>Alunos Matriculados</h2>
-                <ul class="lista" id="listaAlunos"></ul>
-            </div>
+            <div class="page-header"><h1>🎓 Alunos</h1><p>Lista com IDs para lançamentos</p></div>
+            <div class="section-card"><h2>Alunos Cadastrados</h2><ul class="lista" id="listaAlunos"></ul></div>
         </section>
 
-        <section id="disciplinas">
-            <div class="page-header"><h1>📚 Disciplinas</h1></div>
+        <!-- LANÇAR AVALIAÇÃO -->
+        <section id="lancarAvaliacao">
+            <div class="page-header"><h1>📝 Lançar Avaliação</h1><p>Prova, Trabalho ou Participação</p></div>
             <div class="section-card">
-                <h2>Disciplinas Disponíveis</h2>
-                <ul class="lista" id="listaDisciplinas"></ul>
-            </div>
-        </section>
-
-        <section id="lancarnotas">
-            <div class="page-header">
-                <h1>📝 Lançar Notas</h1>
-                <p>Registre as notas dos alunos por bimestre</p>
-            </div>
-            <div class="section-card">
-                <h2>Lançar Nota</h2>
+                <h2>Nova Avaliação</h2>
                 <div class="form-row">
-                    <select id="notaAlunoId">
-                        <option value="">Carregando alunos...</option>
+                    <input id="avAlunoId" type="number" placeholder="ID do Aluno">
+                    <input id="avDisciplinaId" type="number" placeholder="ID da Disciplina">
+                </div>
+                <div class="form-row">
+                    <select id="avTipo">
+                        <option value="">Tipo de Avaliação</option>
+                        <option value="PROVA">📝 Prova</option>
+                        <option value="TRABALHO">📋 Trabalho</option>
+                        <option value="PARTICIPACAO">🙋 Participação</option>
                     </select>
-
-                    <select id="notaDisciplinaId">
-                        <option value="">Carregando disciplinas...</option>
-                    </select>
-
-                    <select id="notaBimestre">
-                        <option value="">Bimestre...</option>
+                    <select id="avBimestre">
+                        <option value="">Bimestre</option>
                         <option value="1">1º Bimestre</option>
                         <option value="2">2º Bimestre</option>
                         <option value="3">3º Bimestre</option>
                         <option value="4">4º Bimestre</option>
                     </select>
-
-                    <input id="notaValor" type="number" step="0.1" min="0" max="10" placeholder="Nota (0-10)">
-
-                    <button class="btn btn-primary" onclick="lancarNota()">Lançar</button>
+                    <input id="avValor" type="number" step="0.1" min="0" max="10" placeholder="Nota (0-10)">
                 </div>
-                <p id="notaMensagem" style="margin:8px 0;font-size:14px;"></p>
+                <input id="avDescricao" type="text" placeholder="Descrição (ex: Prova bimestral, Trabalho em grupo)" style="margin-bottom:12px">
+                <button class="btn btn-primary" onclick="lancarAvaliacao()">Lançar</button>
+                <p id="avMensagem" style="margin-top:10px;font-size:14px;"></p>
+            </div>
+            <div class="section-card" style="margin-top:16px">
+                <h2>Consultar Avaliações de um Aluno</h2>
+                <div class="form-row">
+                    <input id="consultaAlunoId" type="number" placeholder="ID do Aluno">
+                    <button class="btn btn-primary" onclick="consultarAvaliacoesAluno()">Buscar</button>
+                </div>
+                <div id="resultadoAvaliacoes" style="margin-top:12px"></div>
             </div>
         </section>
 
-        <section id="frequencia">
-            <div class="page-header">
-                <h1>📅 Frequência</h1>
-                <p>Lançamento de chamadas</p>
-            </div>
+        <!-- TRABALHOS -->
+        <section id="trabalhos">
+            <div class="page-header"><h1>📋 Trabalhos</h1><p>Cadastre trabalhos com prazo para as turmas</p></div>
             <div class="section-card">
-                <p>Módulo de chamadas em construção...</p>
+                <h2>Novo Trabalho</h2>
+                <div class="form-row">
+                    <input id="trabTitulo" type="text" placeholder="Título do trabalho">
+                    <input id="trabDisciplinaId" type="number" placeholder="ID da Disciplina">
+                    <input id="trabTurmaId" type="number" placeholder="ID da Turma">
+                </div>
+                <div class="form-row">
+                    <input id="trabPrazo" type="date">
+                    <select id="trabBimestre">
+                        <option value="">Bimestre</option>
+                        <option value="1">1º Bimestre</option>
+                        <option value="2">2º Bimestre</option>
+                        <option value="3">3º Bimestre</option>
+                        <option value="4">4º Bimestre</option>
+                    </select>
+                </div>
+                <input id="trabDescricao" type="text" placeholder="Descrição (opcional)" style="margin-bottom:12px">
+                <button class="btn btn-primary" onclick="criarTrabalho()">Cadastrar Trabalho</button>
+                <p id="trabMensagem" style="margin-top:10px;font-size:14px;"></p>
+                <h2 style="margin-top:20px">Trabalhos Cadastrados</h2>
+                <ul class="lista" id="listaTrabalhos"></ul>
             </div>
+        </section>
+
+        <!-- FREQUÊNCIA -->
+        <section id="frequencia">
+            <div class="page-header"><h1>📅 Registrar Frequência</h1></div>
+            <div class="section-card">
+                <h2>Registrar Presença</h2>
+                <div class="form-row">
+                    <input id="freqAlunoId" type="number" placeholder="ID do Aluno">
+                    <input id="freqDisciplinaId" type="number" placeholder="ID da Disciplina">
+                    <input id="freqData" type="date">
+                    <select id="freqPresente">
+                        <option value="true">✅ Presente</option>
+                        <option value="false">❌ Falta</option>
+                    </select>
+                </div>
+                <input id="freqObs" type="text" placeholder="Observação (opcional)" style="margin-bottom:12px">
+                <button class="btn btn-primary" onclick="registrarFrequencia()">Registrar</button>
+                <p id="freqMensagem" style="margin-top:10px;font-size:14px;"></p>
+                <h2 style="margin-top:20px">Consultar Frequência</h2>
+                <div class="form-row">
+                    <input id="freqConsultaAluno" type="number" placeholder="ID do Aluno">
+                    <input id="freqConsultaDisc" type="number" placeholder="ID da Disciplina">
+                    <button class="btn btn-primary" onclick="verResumoFrequencia()">Ver Resumo</button>
+                </div>
+                <div id="resumoFreq" style="margin-top:12px"></div>
+            </div>
+        </section>
+
+        <!-- ADVERTÊNCIAS -->
+        <section id="advertencias">
+            <div class="page-header"><h1>⚠️ Advertências</h1><p>Registre ocorrências disciplinares</p></div>
+            <div class="section-card">
+                <h2>Registrar Advertência</h2>
+                <div class="form-row">
+                    <input id="advAlunoId" type="number" placeholder="ID do Aluno">
+                    <input id="advData" type="date">
+                    <select id="advGravidade">
+                        <option value="LEVE">🟡 Leve</option>
+                        <option value="MEDIA">🟠 Média</option>
+                        <option value="GRAVE">🔴 Grave</option>
+                    </select>
+                </div>
+                <input id="advDescricao" type="text" placeholder="Descrição da ocorrência" style="margin-bottom:12px">
+                <button class="btn btn-primary" onclick="registrarAdvertencia()">Registrar</button>
+                <p id="advMensagem" style="margin-top:10px;font-size:14px;"></p>
+                <h2 style="margin-top:20px">Consultar Advertências</h2>
+                <div class="form-row">
+                    <input id="advConsultaAluno" type="number" placeholder="ID do Aluno">
+                    <button class="btn btn-primary" onclick="verAdvertenciasAluno()">Buscar</button>
+                </div>
+                <ul class="lista" id="listaAdvertenciasConsulta" style="margin-top:12px"></ul>
+            </div>
+        </section>
+
+        <!-- TURMAS -->
+        <section id="turmas">
+            <div class="page-header"><h1>🏫 Turmas</h1></div>
+            <div class="section-card"><h2>Turmas</h2><ul class="lista" id="listaTurmas"></ul></div>
+        </section>
+
+        <!-- DISCIPLINAS -->
+        <section id="disciplinas">
+            <div class="page-header"><h1>📚 Disciplinas</h1></div>
+            <div class="section-card"><h2>Disciplinas</h2><ul class="lista" id="listaDisciplinas"></ul></div>
         </section>
 
     </main>
 </div>
-
 <script src="script.js"></script>
 <script>
-    // ==========================================
-    // 1. GUARDA DE ROTA (SEGURANÇA ESTrita)
-    // ==========================================
-    var userLogado = getUsuario();
-    // Agora APENAS usuários do tipo PROFESSOR conseguem acessar essa tela
-    if (!userLogado || userLogado.tipo !== "PROFESSOR") {
-        window.location.href = "index.html";
-    } else {
-        mostrarUsuario();
+    mostrarUsuario();
+
+    function lancarAvaliacao() {
+        const alunoId = document.getElementById("avAlunoId").value;
+        const disciplinaId = document.getElementById("avDisciplinaId").value;
+        const tipo = document.getElementById("avTipo").value;
+        const bimestre = document.getElementById("avBimestre").value;
+        const valor = document.getElementById("avValor").value;
+        const descricao = document.getElementById("avDescricao").value;
+        if (!alunoId || !disciplinaId || !tipo || !bimestre || !valor) { alert("Preencha todos os campos!"); return; }
+        fetch(API + "/avaliacoes", { method: "POST", headers: authHeaders(), body: JSON.stringify({ alunoId, disciplinaId, tipo, bimestre, valor, descricao }) })
+        .then(r => r.json())
+        .then(() => { document.getElementById("avMensagem").innerText = "✅ Avaliação lançada!"; })
+        .catch(() => { document.getElementById("avMensagem").innerText = "❌ Erro ao lançar."; });
     }
 
-    // ==========================================
-    // 2. CARREGA DADOS INICIAIS DO DASHBOARD
-    // ==========================================
-    fetch("http://localhost:8080/api/alunos", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalAlunos").innerText = d.length; })
-        .catch(() => { document.getElementById("totalAlunos").innerText = "0"; });
+    function consultarAvaliacoesAluno() {
+        const id = document.getElementById("consultaAlunoId").value;
+        if (!id) return;
+        fetch(API + "/avaliacoes/aluno/" + id, { headers: authHeaders() }).then(r => r.json()).then(avs => {
+            const el = document.getElementById("resultadoAvaliacoes");
+            el.innerHTML = avs.length ? avs.map(av => {
+                const cls = av.valor >= 7 ? "aprovado" : av.valor >= 5 ? "neutro" : "reprovado";
+                return `<div class="nota-display"><div class="nota-circle ${cls}">${av.valor?.toFixed(1)}</div><div class="nota-info"><strong>${av.disciplina?.nome} — ${av.tipo}</strong><span>${av.bimestre}º Bim${av.descricao ? " | " + av.descricao : ""}</span></div></div>`;
+            }).join("") : '<p>Nenhuma avaliação encontrada.</p>';
+        });
+    }
 
-    fetch("http://localhost:8080/api/turmas", { headers: authHeaders() })
-        .then(r => r.ok ? r.json() : [])
-        .then(d => { document.getElementById("totalTurmas").innerText = d.length; })
-        .catch(() => { document.getElementById("totalTurmas").innerText = "0"; });
+    function criarTrabalho() {
+        const titulo = document.getElementById("trabTitulo").value.trim();
+        const disciplinaId = document.getElementById("trabDisciplinaId").value;
+        const turmaId = document.getElementById("trabTurmaId").value;
+        const prazo = document.getElementById("trabPrazo").value;
+        const bimestre = document.getElementById("trabBimestre").value;
+        const descricao = document.getElementById("trabDescricao").value;
+        if (!titulo || !prazo) { alert("Preencha título e prazo!"); return; }
+        const body = { titulo, descricao, prazo, bimestre: bimestre || null };
+        if (disciplinaId) body.disciplina = { id: disciplinaId };
+        if (turmaId) body.turma = { id: turmaId };
+        fetch(API + "/trabalhos", { method: "POST", headers: authHeaders(), body: JSON.stringify(body) })
+        .then(r => r.json())
+        .then(() => { document.getElementById("trabMensagem").innerText = "✅ Trabalho cadastrado!"; carregarTrabalhos(); })
+        .catch(() => { document.getElementById("trabMensagem").innerText = "❌ Erro ao cadastrar."; });
+    }
+
+    function registrarFrequencia() {
+        const alunoId = document.getElementById("freqAlunoId").value;
+        const disciplinaId = document.getElementById("freqDisciplinaId").value;
+        const data = document.getElementById("freqData").value;
+        const presente = document.getElementById("freqPresente").value;
+        const observacao = document.getElementById("freqObs").value;
+        if (!alunoId || !disciplinaId || !data) { alert("Preencha os campos obrigatórios!"); return; }
+        fetch(API + "/frequencias", { method: "POST", headers: authHeaders(), body: JSON.stringify({ alunoId, disciplinaId, data, presente, observacao }) })
+        .then(r => r.json())
+        .then(() => { document.getElementById("freqMensagem").innerText = "✅ Frequência registrada!"; })
+        .catch(() => { document.getElementById("freqMensagem").innerText = "❌ Erro ao registrar."; });
+    }
+
+    function verResumoFrequencia() {
+        const alunoId = document.getElementById("freqConsultaAluno").value;
+        const discId = document.getElementById("freqConsultaDisc").value;
+        if (!alunoId || !discId) { alert("Informe ID do aluno e da disciplina!"); return; }
+        fetch(API + "/frequencias/resumo/" + alunoId + "/" + discId, { headers: authHeaders() })
+        .then(r => r.json())
+        .then(d => {
+            const cor = d.percentualPresenca >= 75 ? "#dcfce7" : "#fee2e2";
+            document.getElementById("resumoFreq").innerHTML = `<div style="background:${cor};padding:16px;border-radius:10px;margin-top:8px">Presença: <strong>${d.percentualPresenca}%</strong> | Presenças: ${d.presencas} | Faltas: ${d.faltas} | <span class="badge ${d.situacao === 'APROVADO' ? 'badge-green' : 'badge-red'}">${d.situacao}</span></div>`;
+        }).catch(() => {});
+    }
+
+    function registrarAdvertencia() {
+        const alunoId = document.getElementById("advAlunoId").value;
+        const data = document.getElementById("advData").value;
+        const gravidade = document.getElementById("advGravidade").value;
+        const descricao = document.getElementById("advDescricao").value.trim();
+        if (!alunoId || !data || !descricao) { alert("Preencha todos os campos!"); return; }
+        fetch(API + "/advertencias", { method: "POST", headers: authHeaders(), body: JSON.stringify({ alunoId, data, gravidade, descricao }) })
+        .then(r => r.json())
+        .then(() => { document.getElementById("advMensagem").innerText = "✅ Advertência registrada!"; })
+        .catch(() => { document.getElementById("advMensagem").innerText = "❌ Erro ao registrar."; });
+    }
+
+    function verAdvertenciasAluno() {
+        const id = document.getElementById("advConsultaAluno").value;
+        if (!id) return;
+        fetch(API + "/advertencias/aluno/" + id, { headers: authHeaders() }).then(r => r.json()).then(advs => {
+            const lista = document.getElementById("listaAdvertenciasConsulta");
+            const cor = { LEVE: "badge-blue", MEDIA: "badge-yellow", GRAVE: "badge-red" };
+            lista.innerHTML = advs.length ? advs.map(a => `<li>⚠️ <strong>${a.descricao}</strong> — ${a.data} <span class="badge ${cor[a.gravidade]}">${a.gravidade}</span></li>`).join("") : "<li>Nenhuma advertência ✅</li>";
+        });
+    }
+
+    // Dashboard stats
+    fetch(API + "/alunos", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalAlunos").innerText = d.length; }).catch(()=>{});
+    fetch(API + "/turmas", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalTurmas").innerText = d.length; }).catch(()=>{});
+    fetch(API + "/disciplinas", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalDisciplinas").innerText = d.length; }).catch(()=>{});
+    fetch(API + "/trabalhos", { headers: authHeaders() }).then(r=>r.json()).then(d=>{ document.getElementById("totalTrabalhos").innerText = d.length; }).catch(()=>{});
 </script>
 </body>
 </html>
